@@ -1,5 +1,5 @@
 """FarmSight API. From the project root: ``uvicorn server:app --port 8000``."""
-
+import os
 import base64
 import importlib
 import io
@@ -42,7 +42,15 @@ MODEL_FILES = {
 }
 _lock = threading.Lock()
 
+
 app = FastAPI(title="FarmSight API", version="1.0.0")
+
+frontend_origins = [
+    origin.strip()
+    for origin in os.getenv("FARMSIGHT_FRONTEND_ORIGINS", "").split(",")
+    if origin.strip()
+]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -52,11 +60,11 @@ app.add_middleware(
         "http://127.0.0.1:8443",
         "http://localhost:8501",
         "http://127.0.0.1:8501",
+        *frontend_origins,
     ],
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
-
 
 def _data_url(image: Image.Image) -> str:
     buffer = io.BytesIO()
