@@ -1,0 +1,45 @@
+{
+  "classes": [
+    "leaf",
+    "produce",
+    "other"
+  ],
+  "train_images": 1035,
+  "validation_images": 1008,
+  "test": {
+    "n_images": 1008,
+    "accuracy": 0.9970238095238095,
+    "balanced_accuracy": 0.9979999999999999,
+    "per_class_recall": {
+      "leaf": 1.0,
+      "produce": 0.994,
+      "other": 1.0
+    },
+    "confusion_matrix": [
+      [
+        500,
+        0,
+        0
+      ],
+      [
+        2,
+        497,
+        1
+      ],
+      [
+        0,
+        0,
+        8
+      ]
+    ]
+  },
+  "negative_images_total": 51,
+  "negative_images_by_split": {
+    "train": 35,
+    "validation": 8,
+    "test": 8
+  },
+  "training_seconds": 422.0,
+  "validation_balanced_accuracy": 0.9966666666666667,
+  "threshold_note": "This gate is trained only on the supplied negative-image distribution; performance on unseen out-of-domain image types is not guaranteed."
+}

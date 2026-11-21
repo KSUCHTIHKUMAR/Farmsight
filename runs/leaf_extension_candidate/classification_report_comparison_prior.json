@@ -1,0 +1,219 @@
+{
+  "Apple___Apple_scab": {
+    "precision": 1.0,
+    "recall": 0.9893617021276596,
+    "f1-score": 0.9946524064171123,
+    "support": 94.0
+  },
+  "Apple___Black_rot": {
+    "precision": 0.9789473684210527,
+    "recall": 1.0,
+    "f1-score": 0.9893617021276596,
+    "support": 93.0
+  },
+  "Apple___Cedar_apple_rust": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 41.0
+  },
+  "Apple___healthy": {
+    "precision": 1.0,
+    "recall": 0.9878542510121457,
+    "f1-score": 0.9938900203665988,
+    "support": 247.0
+  },
+  "Bellpepper___Bacterial_spot": {
+    "precision": 0.9933774834437086,
+    "recall": 1.0,
+    "f1-score": 0.9966777408637874,
+    "support": 150.0
+  },
+  "Bellpepper___healthy": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 221.0
+  },
+  "Cucumber___Downy_mildew": {
+    "precision": 0.9863013698630136,
+    "recall": 1.0,
+    "f1-score": 0.993103448275862,
+    "support": 216.0
+  },
+  "Cucumber___Powdery_mildew": {
+    "precision": 1.0,
+    "recall": 0.9841269841269841,
+    "f1-score": 0.992,
+    "support": 189.0
+  },
+  "Cucumber___healthy": {
+    "precision": 0.995,
+    "recall": 1.0,
+    "f1-score": 0.9974937343358395,
+    "support": 199.0
+  },
+  "Grape___Black_rot": {
+    "precision": 0.9833333333333333,
+    "recall": 1.0,
+    "f1-score": 0.9915966386554622,
+    "support": 177.0
+  },
+  "Grape___Esca_(Black_Measles)": {
+    "precision": 1.0,
+    "recall": 0.9951690821256038,
+    "f1-score": 0.9975786924939467,
+    "support": 207.0
+  },
+  "Grape___Leaf_blight_(Isariopsis_Leaf_Spot)": {
+    "precision": 1.0,
+    "recall": 0.9565217391304348,
+    "f1-score": 0.9777777777777777,
+    "support": 161.0
+  },
+  "Grape___healthy": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 63.0
+  },
+  "Mango___Anthracnose": {
+    "precision": 0.9917355371900827,
+    "recall": 1.0,
+    "f1-score": 0.995850622406639,
+    "support": 120.0
+  },
+  "Mango___Bacterial_Canker": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 120.0
+  },
+  "Mango___Cutting_Weevil": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 120.0
+  },
+  "Mango___Die_Back": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 120.0
+  },
+  "Mango___Gall_Midge": {
+    "precision": 1.0,
+    "recall": 0.95,
+    "f1-score": 0.9743589743589743,
+    "support": 120.0
+  },
+  "Mango___Healthy": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 120.0
+  },
+  "Mango___Powdery_Mildew": {
+    "precision": 0.9754098360655737,
+    "recall": 0.9916666666666667,
+    "f1-score": 0.9834710743801653,
+    "support": 120.0
+  },
+  "Mango___Sooty_Mould": {
+    "precision": 0.975609756097561,
+    "recall": 1.0,
+    "f1-score": 0.9876543209876543,
+    "support": 120.0
+  },
+  "Potato___Early_blight": {
+    "precision": 1.0,
+    "recall": 0.994475138121547,
+    "f1-score": 0.997229916897507,
+    "support": 181.0
+  },
+  "Potato___Late_blight": {
+    "precision": 0.9626865671641791,
+    "recall": 0.9699248120300752,
+    "f1-score": 0.9662921348314607,
+    "support": 133.0
+  },
+  "Potato___healthy": {
+    "precision": 0.9259259259259259,
+    "recall": 1.0,
+    "f1-score": 0.9615384615384616,
+    "support": 25.0
+  },
+  "Tomato___Bacterial_spot": {
+    "precision": 0.9776357827476039,
+    "recall": 0.9745222929936306,
+    "f1-score": 0.9760765550239234,
+    "support": 314.0
+  },
+  "Tomato___Early_blight": {
+    "precision": 0.9182389937106918,
+    "recall": 0.9864864864864865,
+    "f1-score": 0.9511400651465798,
+    "support": 148.0
+  },
+  "Tomato___Late_blight": {
+    "precision": 0.9728813559322034,
+    "recall": 0.9630872483221476,
+    "f1-score": 0.9679595278246206,
+    "support": 298.0
+  },
+  "Tomato___Leaf_Mold": {
+    "precision": 0.993421052631579,
+    "recall": 0.993421052631579,
+    "f1-score": 0.993421052631579,
+    "support": 152.0
+  },
+  "Tomato___Mosaic_virus": {
+    "precision": 0.775,
+    "recall": 1.0,
+    "f1-score": 0.8732394366197183,
+    "support": 62.0
+  },
+  "Tomato___Septoria_leaf_spot": {
+    "precision": 0.9845559845559846,
+    "recall": 0.9695817490494296,
+    "f1-score": 0.9770114942528736,
+    "support": 263.0
+  },
+  "Tomato___Spider_mites": {
+    "precision": 0.9922178988326849,
+    "recall": 0.9586466165413534,
+    "f1-score": 0.9751434034416826,
+    "support": 266.0
+  },
+  "Tomato___Target_Spot": {
+    "precision": 0.9625668449197861,
+    "recall": 0.967741935483871,
+    "f1-score": 0.9651474530831099,
+    "support": 186.0
+  },
+  "Tomato___Yellow_Leaf_Curl_Virus": {
+    "precision": 1.0,
+    "recall": 0.9861111111111112,
+    "f1-score": 0.993006993006993,
+    "support": 792.0
+  },
+  "Tomato___healthy": {
+    "precision": 0.9953703703703703,
+    "recall": 1.0,
+    "f1-score": 0.9976798143851509,
+    "support": 215.0
+  },
+  "accuracy": 0.9859573765075169,
+  "macro avg": {
+    "precision": 0.9805945723883923,
+    "recall": 0.9887852608223743,
+    "f1-score": 0.984128043003857,
+    "support": 6053.0
+  },
+  "weighted avg": {
+    "precision": 0.9868192300521477,
+    "recall": 0.9859573765075169,
+    "f1-score": 0.9861423509219845,
+    "support": 6053.0
+  }
+}

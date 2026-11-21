@@ -1,0 +1,15 @@
+                 precision    recall  f1-score   support
+
+             BA       0.89      0.89      0.89         9
+             HA       0.82      0.88      0.85        16
+             MP       0.77      1.00      0.87        20
+Not_Tomato_Pest       0.96      0.93      0.94        91
+             SE       1.00      0.82      0.90        11
+             SL       0.85      0.79      0.81        14
+             TP       1.00      1.00      1.00         4
+             TU       1.00      0.82      0.90        11
+             ZC       1.00      1.00      1.00         6
+
+       accuracy                           0.91       182
+      macro avg       0.92      0.90      0.91       182
+   weighted avg       0.92      0.91      0.91       182

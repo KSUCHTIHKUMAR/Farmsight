@@ -1,0 +1,86 @@
+# Project Prompt — UI Flow & Architecture
+### Farm-to-Harvest Produce Health Monitor
+
+Use this as a copy-paste brief for a design tool (Figma AI, v0, Bolt), or as a reference for building the UI yourself.
+
+---
+
+## Project One-Liner
+A mobile-friendly web app that helps farmers diagnose leaf disease in tomato and potato crops, and helps vendors grade apples, bananas, and oranges as fresh or rotten — using photo upload or live camera capture, with an AI explanation (Grad-CAM heatmap) for every result.
+
+## Design Direction
+- **Style:** Clean, modern, agri-tech — not clinical/sterile, not overly playful. Think "trustworthy field tool," similar to modern fintech or health apps: generous whitespace, rounded cards, soft shadows, one confident accent color (green fits the domain naturally without being a cliché farm theme).
+- **Typography:** A clean sans-serif (Inter, Manrope, or similar), strong hierarchy between headline/result text and supporting body text.
+- **Tone:** Reassuring and clear, not alarming — even when the result is "diseased" or "rotten," the UI should feel helpful, not punitive.
+- **Mobile-first:** primary usage is a farmer/vendor on a phone in the field or at a stall, not a desktop user.
+
+## Full UI Flow
+
+```
+Landing
+  → Task Picker (Diagnose Leaf | Grade Produce)
+      → Input Method (Upload Photo | Take Photo)
+          → Loading / Processing state
+              → Results screen
+                  ├─ Prediction label + confidence score
+                  ├─ Grad-CAM heatmap overlay on the image
+                  ├─ (Leaf task only) Suggested treatment card
+                  └─ "Try another" → back to Input Method
+              → Error state (bad file / low confidence) → back to Input Method
+```
+
+## Screens to Design
+
+**1. Landing**
+One-line app description, two clear entry points (or a single "Get Started" leading into the Task Picker). Should communicate what the app does in under 5 seconds.
+
+**2. Task Picker**
+Two large, tappable cards: "Diagnose Leaf" and "Grade Produce." Icon + one-line description each. This is the fork point that determines which model runs later.
+
+**3. Input Method**
+Two options: "Upload Photo" (file picker) and "Take Photo" (camera capture). Show a brief instruction relevant to the chosen task (e.g., "Photograph the affected leaf area in good light" vs. "Photograph the whole fruit").
+
+**4. Loading/Processing**
+Simple, short-duration state — spinner or subtle animation, no more than a couple seconds expected. Avoid making this feel like a long wait.
+
+**5. Results**
+- Predicted class + confidence percentage, prominent
+- Grad-CAM overlay on the submitted image (heatmap highlighting the region the model focused on)
+- For leaf disease results: a "Suggested Treatment" card showing the general treatment category (fungicide/pesticide/fertilizer) with a caveat line: *"General guidance only — consult your local agricultural extension office."*
+- "Try Another" action to loop back
+
+**6. Error State**
+Friendly, non-technical message ("Couldn't read that image — try another photo"), single "Retry" action back to Input Method. Never a raw error code or crash.
+
+## Architecture (Frontend ↔ Model)
+
+```
+[Browser / Mobile Web UI]
+        │  (image upload or camera capture)
+        ▼
+[Streamlit app hosted on Hugging Face Spaces]
+        │
+        ├─ Task = Leaf  → [Leaf Disease Model: MobileNetV2, fine-tuned on
+        │                   PlantVillage Tomato+Potato subset]
+        │                   → prediction + Grad-CAM + treatment lookup table
+        │
+        └─ Task = Produce → [Ripeness Model: MobileNetV2, fine-tuned on
+                              Kaggle fresh/rotten apple/banana/orange]
+                              → prediction + Grad-CAM
+        │
+        ▼
+[Results rendered back in the same UI component, parameterized by task type]
+```
+
+**Key architecture notes:**
+- One shared results-screen component, parameterized by task (label text and treatment card only appear for the leaf task)
+- Two independently trained models, loaded conditionally based on task selection — not a single multi-task model
+- Treatment suggestions are a static lookup table (disease class → treatment category), not model output
+- No backend database needed — this is a stateless, single-request-response app; no user accounts or history required for v1
+
+## Tech Constraints for the Design/Build
+- Framework: Streamlit (fast to build, sufficient for this scope)
+- Hosting: Hugging Face Spaces (free GPU tier)
+- Must work on both mobile browsers and desktop
+- Camera capture uses `st.camera_input()` (single-shot capture, not continuous video)
+- No login/auth required

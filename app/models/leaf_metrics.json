@@ -1,0 +1,13 @@
+{
+  "field_accuracy": 0.3900414937759336,
+  "field_accuracy_images": 241,
+  "field_correct_predictions": 94,
+  "crop_accuracy": 0.8049792531120332,
+  "crop_correct_predictions": 194,
+  "test_accuracy": 0.9859573765075169,
+  "test_macro_f1": 0.984128043003857,
+  "test_images": 6053,
+  "crop_count": 7,
+  "class_count": 34,
+  "evaluation": "End-to-end predicted-crop disease accuracy using the seven-crop v7 model and existing Potato/Tomato specialist route on 241 images from data/leaf_field_test. Two exact-image overlaps with the specialist's data/leaf_mixed training/validation were excluded for a fair comparison; there were no exact overlaps between the seven-crop v5-derived dataset and field images. The field gate is not included."
+}

@@ -1,0 +1,75 @@
+{
+  "n_images": 243,
+  "accuracy": 0.39094650205761317,
+  "macro_f1_present_classes": 0.33026271518407824,
+  "macro_recall_present_classes": 0.3550702187814553,
+  "per_class": {
+    "Potato___Early_blight": {
+      "precision": 0.5714285714285714,
+      "recall": 0.13793103448275862,
+      "f1-score": 0.2222222222222222,
+      "support": 29.0
+    },
+    "Potato___Late_blight": {
+      "precision": 0.375,
+      "recall": 0.6923076923076923,
+      "f1-score": 0.4864864864864865,
+      "support": 26.0
+    },
+    "Tomato___Bacterial_spot": {
+      "precision": 0.23809523809523808,
+      "recall": 0.17857142857142858,
+      "f1-score": 0.20408163265306123,
+      "support": 28.0
+    },
+    "Tomato___Early_blight": {
+      "precision": 0.4,
+      "recall": 0.2727272727272727,
+      "f1-score": 0.32432432432432434,
+      "support": 22.0
+    },
+    "Tomato___Late_blight": {
+      "precision": 0.5833333333333334,
+      "recall": 0.25,
+      "f1-score": 0.35,
+      "support": 28.0
+    },
+    "Tomato___Leaf_Mold": {
+      "precision": 0.325,
+      "recall": 0.5652173913043478,
+      "f1-score": 0.4126984126984127,
+      "support": 23.0
+    },
+    "Tomato___Mosaic_virus": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 14.0
+    },
+    "Tomato___Septoria_leaf_spot": {
+      "precision": 0.43661971830985913,
+      "recall": 0.8157894736842105,
+      "f1-score": 0.5688073394495413,
+      "support": 38.0
+    },
+    "Tomato___Yellow_Leaf_Curl_Virus": {
+      "precision": 0.625,
+      "recall": 0.2631578947368421,
+      "f1-score": 0.37037037037037035,
+      "support": 19.0
+    },
+    "Tomato___healthy": {
+      "precision": 0.35294117647058826,
+      "recall": 0.375,
+      "f1-score": 0.36363636363636365,
+      "support": 16.0
+    }
+  },
+  "classes_not_scored": [
+    "Potato___healthy",
+    "Tomato___Spider_mites",
+    "Tomato___Target_Spot"
+  ],
+  "clean_test_accuracy": 0.9720026350461133,
+  "gap_points": 58.1
+}

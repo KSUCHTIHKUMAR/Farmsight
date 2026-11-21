@@ -1,0 +1,166 @@
+{
+  "classes": [
+    "Potato___Early_blight",
+    "Potato___Late_blight",
+    "Potato___healthy",
+    "Tomato___Bacterial_spot",
+    "Tomato___Early_blight",
+    "Tomato___Late_blight",
+    "Tomato___Leaf_Mold",
+    "Tomato___Mosaic_virus",
+    "Tomato___Septoria_leaf_spot",
+    "Tomato___Spider_mites",
+    "Tomato___Target_Spot",
+    "Tomato___Yellow_Leaf_Curl_Virus",
+    "Tomato___healthy"
+  ],
+  "params": 259021,
+  "train_time_sec": 2326.5,
+  "best_val_acc": 0.8761999337967561,
+  "settings": {
+    "model": "cnn",
+    "pretrained": false,
+    "augmentation": true,
+    "class_weights": false,
+    "epochs": 10,
+    "batch": 32,
+    "img": 128,
+    "lr": 0.001,
+    "seed": 42
+  },
+  "history": {
+    "train_loss": [
+      1.938940507089482,
+      1.5161340206470488,
+      1.2098556178616262,
+      1.0026205084595372,
+      0.8533674904123019,
+      0.7688778681495119,
+      0.6946137794894285,
+      0.6441956074256391,
+      0.5737115843086287,
+      0.5453141221479559
+    ],
+    "val_loss": [
+      1.5551561107109888,
+      1.450528031269946,
+      1.087118393457003,
+      0.860817314535922,
+      0.6180087033386698,
+      0.5579413330464204,
+      0.5718943344583893,
+      0.5307898088446203,
+      0.5476747606910249,
+      0.37413543238816616
+    ],
+    "train_acc": [
+      0.3655370799130008,
+      0.49821090296779624,
+      0.5938398933557848,
+      0.6583175471830491,
+      0.7078509787413176,
+      0.7403353679927033,
+      0.759138426997825,
+      0.7789237353539605,
+      0.8047428611520382,
+      0.8154774433452606
+    ],
+    "val_acc": [
+      0.5187024164184045,
+      0.4746772591857001,
+      0.6242965905329361,
+      0.6954650777888116,
+      0.7917907977490897,
+      0.8133068520357497,
+      0.7964250248262165,
+      0.8159549817941079,
+      0.7964250248262165,
+      0.8761999337967561
+    ]
+  },
+  "test": {
+    "n_images": 3036,
+    "accuracy": 0.8791172595520421,
+    "macro_f1": 0.8233592417003089,
+    "per_class": {
+      "Potato___Early_blight": {
+        "precision": 0.9766081871345029,
+        "recall": 0.9226519337016574,
+        "f1-score": 0.9488636363636364,
+        "support": 181.0
+      },
+      "Potato___Late_blight": {
+        "precision": 0.9090909090909091,
+        "recall": 0.7518796992481203,
+        "f1-score": 0.823045267489712,
+        "support": 133.0
+      },
+      "Potato___healthy": {
+        "precision": 0.9375,
+        "recall": 0.6,
+        "f1-score": 0.7317073170731707,
+        "support": 25.0
+      },
+      "Tomato___Bacterial_spot": {
+        "precision": 0.9197530864197531,
+        "recall": 0.9490445859872612,
+        "f1-score": 0.9341692789968652,
+        "support": 314.0
+      },
+      "Tomato___Early_blight": {
+        "precision": 0.8849557522123894,
+        "recall": 0.6756756756756757,
+        "f1-score": 0.7662835249042146,
+        "support": 148.0
+      },
+      "Tomato___Late_blight": {
+        "precision": 0.824773413897281,
+        "recall": 0.9130434782608695,
+        "f1-score": 0.8666666666666667,
+        "support": 299.0
+      },
+      "Tomato___Leaf_Mold": {
+        "precision": 0.8984375,
+        "recall": 0.756578947368421,
+        "f1-score": 0.8214285714285714,
+        "support": 152.0
+      },
+      "Tomato___Mosaic_virus": {
+        "precision": 1.0,
+        "recall": 0.3709677419354839,
+        "f1-score": 0.5411764705882353,
+        "support": 62.0
+      },
+      "Tomato___Septoria_leaf_spot": {
+        "precision": 0.6231155778894473,
+        "recall": 0.9429657794676806,
+        "f1-score": 0.7503782148260212,
+        "support": 263.0
+      },
+      "Tomato___Spider_mites": {
+        "precision": 0.8213058419243986,
+        "recall": 0.8984962406015038,
+        "f1-score": 0.8581687612208259,
+        "support": 266.0
+      },
+      "Tomato___Target_Spot": {
+        "precision": 0.8378378378378378,
+        "recall": 0.6666666666666666,
+        "f1-score": 0.7425149700598802,
+        "support": 186.0
+      },
+      "Tomato___Yellow_Leaf_Curl_Virus": {
+        "precision": 0.982256020278834,
+        "recall": 0.9785353535353535,
+        "f1-score": 0.9803921568627451,
+        "support": 792.0
+      },
+      "Tomato___healthy": {
+        "precision": 0.9896907216494846,
+        "recall": 0.8930232558139535,
+        "f1-score": 0.9388753056234719,
+        "support": 215.0
+      }
+    }
+  }
+}

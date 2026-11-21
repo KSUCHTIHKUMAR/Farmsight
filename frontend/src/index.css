@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Noto+Sans+Telugu:wght@400;600;800&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-family-sans: 'Inter', sans-serif;
+  --font-family-display: 'Manrope', sans-serif;
+
+  --color-fs-bg: #F5F2EC;
+  --color-fs-fg: #1A201A;
+  --color-fs-card: #FFFFFF;
+  --color-fs-green: #2D6A4F;
+  --color-fs-green-light: #52B788;
+  --color-fs-green-pale: #D8EFDF;
+  --color-fs-muted: #E8E4DB;
+  --color-fs-muted-fg: #6B7B6A;
+  --color-fs-border: #DDD8CE;
+  --color-fs-amber: #E07B39;
+  --color-fs-danger: #C83232;
+
+  --radius-card: 1.25rem;
+  --radius-btn: 0.875rem;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #F5F2EC;
+  color: #1A201A;
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes spin-ring {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+
+.animate-spin-ring {
+  animation: spin-ring 0.9s linear infinite;
+}
+
+.animate-fade-up {
+  animation: fade-up 0.45s ease both;
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 1.4s ease-in-out infinite;
+}
+
+/* ── Motion ───────────────────────────────────────────────────────────────── */
+
+.tap {
+  transition: transform 100ms ease-out, background-color 150ms ease-out, border-color 150ms ease-out,
+    box-shadow 150ms ease-out;
+}
+.tap:active {
+  transform: scale(0.97);
+}
+
+.card-lift {
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out, border-color 150ms ease-out;
+}
+.card-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(26, 32, 26, 0.1);
+}
+.card-lift:active {
+  transform: translateY(0) scale(0.98);
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fade-up 0.22s ease-out both;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out both;
+}
+
+@keyframes image-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.animate-image-in {
+  animation: image-in 0.25s ease-out both;
+}
+
+@keyframes shutter {
+  from { opacity: 0.95; }
+  to   { opacity: 0; }
+}
+.animate-shutter {
+  animation: shutter 0.08s ease-out both;
+}
+
+@keyframes select-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(82, 183, 136, 0.5); background-color: #ffffff; }
+  50%  { background-color: #D8EFDF; }
+  100% { box-shadow: 0 0 0 10px rgba(82, 183, 136, 0); background-color: #D8EFDF; }
+}
+.animate-select-pulse {
+  animation: select-pulse 0.24s ease-out both;
+  border-color: #52B788 !important;
+}
+
+@keyframes scan-line {
+  0%   { top: 0%; }
+  100% { top: 100%; }
+}
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, transparent, #52B788, transparent);
+  box-shadow: 0 0 18px 6px rgba(82, 183, 136, 0.45);
+  animation: scan-line 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes sweep {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+.scan-sweep {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent, rgba(82, 183, 136, 0.22), transparent);
+  animation: sweep 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%      { transform: translateX(-4px); }
+  50%      { transform: translateX(3px); }
+  75%      { transform: translateX(-2px); }
+}
+.animate-shake {
+  animation: shake 0.4s ease-in-out 0.15s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up, .animate-fade-in, .animate-image-in, .animate-shake,
+  .animate-select-pulse, .scan-line, .scan-sweep, .card-lift, .tap {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .card-lift:hover, .tap:active { transform: none; }
+}
+
+button {
+  min-height: 44px;
+}
+
+:focus-visible {
+  outline: 3px solid #52B788;
+  outline-offset: 2px;
+}
+
+html[lang='te'] body,
+html[lang='te'] body * {
+  font-family: 'Noto Sans Telugu', 'Manrope', 'Inter', sans-serif !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .scan-line { animation: none; top: 50%; }
+  .scan-sweep { display: none; }
+}

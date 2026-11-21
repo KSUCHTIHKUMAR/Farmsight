@@ -1,0 +1,112 @@
+{
+  "n_images": 243,
+  "accuracy": 0.3662551440329218,
+  "macro_f1_present_classes": 0.360925766280605,
+  "macro_recall_present_classes": 0.3776056027930091,
+  "per_class": {
+    "Potato___Early_blight": {
+      "precision": 0.8571428571428571,
+      "recall": 0.6206896551724138,
+      "f1-score": 0.72,
+      "support": 29.0
+    },
+    "Potato___Late_blight": {
+      "precision": 0.6764705882352942,
+      "recall": 0.8846153846153846,
+      "f1-score": 0.7666666666666667,
+      "support": 26.0
+    },
+    "Tomato___Bacterial_spot": {
+      "precision": 0.13513513513513514,
+      "recall": 0.17857142857142858,
+      "f1-score": 0.15384615384615385,
+      "support": 28.0
+    },
+    "Tomato___Early_blight": {
+      "precision": 0.3333333333333333,
+      "recall": 0.22727272727272727,
+      "f1-score": 0.2702702702702703,
+      "support": 22.0
+    },
+    "Tomato___Late_blight": {
+      "precision": 0.5,
+      "recall": 0.42857142857142855,
+      "f1-score": 0.46153846153846156,
+      "support": 28.0
+    },
+    "Tomato___Leaf_Mold": {
+      "precision": 0.3333333333333333,
+      "recall": 0.043478260869565216,
+      "f1-score": 0.07692307692307693,
+      "support": 23.0
+    },
+    "Tomato___Mosaic_virus": {
+      "precision": 0.11392405063291139,
+      "recall": 0.6428571428571429,
+      "f1-score": 0.1935483870967742,
+      "support": 14.0
+    },
+    "Tomato___Septoria_leaf_spot": {
+      "precision": 0.7142857142857143,
+      "recall": 0.13157894736842105,
+      "f1-score": 0.2222222222222222,
+      "support": 38.0
+    },
+    "Tomato___Yellow_Leaf_Curl_Virus": {
+      "precision": 0.5,
+      "recall": 0.3684210526315789,
+      "f1-score": 0.42424242424242425,
+      "support": 19.0
+    },
+    "Tomato___healthy": {
+      "precision": 0.4444444444444444,
+      "recall": 0.25,
+      "f1-score": 0.32,
+      "support": 16.0
+    }
+  },
+  "classes_not_scored": [
+    "Apple___Apple_scab",
+    "Apple___Black_rot",
+    "Apple___Cedar_apple_rust",
+    "Apple___healthy",
+    "Banana___Sigatoka",
+    "Banana___Xanthomonas",
+    "Banana___healthy",
+    "Bellpepper___Bacterial_spot",
+    "Bellpepper___healthy",
+    "Carrot___leaf",
+    "Cucumber___Downy_mildew",
+    "Cucumber___Powdery_mildew",
+    "Cucumber___healthy",
+    "Grape___Black_rot",
+    "Grape___Esca_(Black_Measles)",
+    "Grape___Leaf_blight_(Isariopsis_Leaf_Spot)",
+    "Grape___healthy",
+    "Guava___Defect",
+    "Guava___healthy",
+    "Jujube___Defect",
+    "Jujube___Insect_Feeding",
+    "Jujube___Leaf_Curl",
+    "Jujube___healthy",
+    "Mango___Anthracnose",
+    "Mango___Bacterial_Canker",
+    "Mango___Cutting_Weevil",
+    "Mango___Die_Back",
+    "Mango___Gall_Midge",
+    "Mango___Healthy",
+    "Mango___Powdery_Mildew",
+    "Mango___Sooty_Mould",
+    "Orange___Huanglongbing_(Citrus_greening)",
+    "Orange___leaf",
+    "Pomegranate___leaf",
+    "Potato___healthy",
+    "Strawberry___Leaf_scorch",
+    "Strawberry___healthy",
+    "Tomato___Spider_mites",
+    "Tomato___Target_Spot"
+  ],
+  "evaluation_mode": "crop-aware",
+  "clean_test_accuracy": 0.9337479718766901,
+  "gap_points": 56.7
+}

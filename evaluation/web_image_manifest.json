@@ -1,0 +1,69 @@
+{
+  "web_images": [
+    {
+      "path": "evaluation/web_images/tomato_early_blight.jpg",
+      "task": "leaf",
+      "expected_label": "Tomato___Early_blight",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Early_blight_on_tomato_leaves_(7871930010).jpg",
+      "license": "CC BY 2.0",
+      "attribution": "Dwight Sipler",
+      "note": "Expected class follows the Commons file title; the plant diagnosis is not independently verified."
+    },
+    {
+      "path": "evaluation/web_images/potato_late_blight.jpg",
+      "task": "leaf",
+      "expected_label": "Potato___Late_blight",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Late_blight_on_potato_leaf_2.jpg",
+      "license": "CC BY 3.0 US",
+      "attribution": "Howard F. Schwartz, Colorado State University",
+      "note": "Disease class follows the Commons file title."
+    },
+    {
+      "path": "evaluation/web_images/potato_healthy.jpg",
+      "task": "leaf",
+      "expected_label": "Potato___healthy",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Healthy_Potato_Plants.jpg",
+      "license": "CC BY-SA 4.0",
+      "attribution": "Ainomugisha Brendah",
+      "note": "Wide field view, unlike the close-up leaf images used for training."
+    }
+  ],
+  "workspace_images": [
+    {
+      "path": "new images/b.jpeg",
+      "task": "produce",
+      "expected_label": "Banana__Healthy",
+      "note": "Expected class inferred from visible content; confirm source annotation."
+    },
+    {
+      "path": "new images/early blight.jpeg",
+      "task": "leaf",
+      "expected_label": "Tomato___Early_blight",
+      "note": "Filename-derived expected class; image diagnosis is unverified."
+    },
+    {
+      "path": "new images/l m.jpeg",
+      "task": "leaf",
+      "expected_label": "Tomato___Leaf_Mold",
+      "note": "Filename-derived expected class; image diagnosis is unverified."
+    },
+    {
+      "path": "new images/o.jpeg",
+      "task": "produce",
+      "expected_label": "Orange__Rotten",
+      "note": "Expected class inferred from visible content; confirm source annotation."
+    },
+    {
+      "path": "new images/p b.jpeg",
+      "task": "leaf",
+      "expected_label": "Potato___Late_blight",
+      "note": "Filename-derived expected class; image diagnosis is unverified."
+    },
+    {
+      "path": "new images/p h.jpeg",
+      "task": "leaf",
+      "expected_label": "Potato___healthy",
+      "note": "Expected class inferred from visible content; the image shows a wide plant view."
+    }
+  ]
+}

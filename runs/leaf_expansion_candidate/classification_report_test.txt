@@ -1,0 +1,74 @@
+                                            precision    recall  f1-score   support
+
+                        Apple___Apple_scab       1.00      0.98      0.99        94
+                         Apple___Black_rot       0.98      1.00      0.99        93
+                  Apple___Cedar_apple_rust       1.00      1.00      1.00        41
+                           Apple___healthy       1.00      1.00      1.00       247
+               Bellpepper___Bacterial_spot       1.00      1.00      1.00       150
+                      Bellpepper___healthy       1.00      1.00      1.00       221
+                   Cucumber___Downy_mildew       1.00      0.99      1.00       216
+                 Cucumber___Powdery_mildew       1.00      0.99      1.00       189
+                        Cucumber___healthy       0.99      1.00      0.99       199
+                         Grape___Black_rot       0.98      1.00      0.99       177
+              Grape___Esca_(Black_Measles)       1.00      1.00      1.00       207
+Grape___Leaf_blight_(Isariopsis_Leaf_Spot)       1.00      0.98      0.99       161
+                           Grape___healthy       1.00      1.00      1.00        63
+          Groundnut___Alternaria_Leaf_Spot       0.96      0.81      0.88        67
+      Groundnut___Leaf_Spot_Early_and_Late       0.76      0.97      0.85        65
+                       Groundnut___Rosette       0.74      1.00      0.85        14
+                          Groundnut___Rust       1.00      1.00      1.00        18
+                       Groundnut___healthy       0.95      0.93      0.94        90
+               Jute___Cercospora_Leaf_Spot       0.67      0.89      0.77        46
+                      Jute___Golden_Mosaic       0.88      0.43      0.58        49
+                            Jute___healthy       0.95      0.93      0.94        40
+                   Maize___Abiotic_disease       1.00      1.00      1.00        11
+                            Maize___Aphids       1.00      1.00      1.00         1
+                        Maize___Curvularia       0.91      0.82      0.86        38
+                Maize___Helminthosporiosis       0.68      0.74      0.71        23
+                              Maize___Rust       0.79      0.79      0.79        14
+             Maize___Spodoptera_frugiperda       0.98      0.97      0.97        87
+                            Maize___Stripe       0.98      0.92      0.95       324
+                           Maize___Virosis       0.38      0.67      0.48        21
+                           Maize___healthy       0.94      0.94      0.94        84
+                       Mango___Anthracnose       1.00      1.00      1.00       120
+                  Mango___Bacterial_Canker       1.00      1.00      1.00       120
+                    Mango___Cutting_Weevil       0.99      1.00      1.00       120
+                          Mango___Die_Back       1.00      1.00      1.00       120
+                        Mango___Gall_Midge       0.99      0.97      0.98       120
+                           Mango___Healthy       0.99      1.00      1.00       120
+                    Mango___Powdery_Mildew       0.98      0.99      0.98       120
+                       Mango___Sooty_Mould       0.99      1.00      1.00       120
+                        Onion___Alternaria       0.81      0.78      0.79        76
+                       Onion___Caterpillar       0.99      0.96      0.98       114
+                          Onion___Fusarium       0.83      0.87      0.85       109
+                           Onion___Virosis       0.78      0.97      0.87        30
+                           Onion___healthy       0.93      0.95      0.94        99
+                     Potato___Early_blight       0.99      1.00      1.00       181
+                      Potato___Late_blight       1.00      0.99      1.00       133
+                          Potato___healthy       0.96      0.96      0.96        25
+                       Tomato___Alternaria       0.88      0.64      0.74        47
+                  Tomato___Alternaria_Mite       1.00      1.00      1.00         1
+            Tomato___Bacterial_floundering       0.81      0.76      0.78        38
+                   Tomato___Bacterial_spot       0.99      0.99      0.99       314
+                     Tomato___Early_blight       0.97      0.99      0.98       148
+                  Tomato___Excess_nitrogen       0.86      1.00      0.92         6
+                         Tomato___Fusarium       0.50      0.33      0.40         3
+                      Tomato___Late_blight       0.97      0.98      0.97       309
+                        Tomato___Leaf_Mold       0.99      1.00      0.99       152
+                             Tomato___Mite       0.76      0.50      0.60        56
+                     Tomato___Mosaic_virus       0.87      1.00      0.93        62
+               Tomato___Septoria_leaf_spot       0.98      0.99      0.98       263
+                     Tomato___Spider_mites       0.97      1.00      0.99       266
+                      Tomato___Target_Spot       0.98      0.96      0.97       186
+                          Tomato___Virosis       0.82      0.88      0.85       225
+           Tomato___Yellow_Leaf_Curl_Virus       0.99      1.00      0.99       792
+                          Tomato___healthy       0.95      0.93      0.94       329
+                 Turmeric___Aphids_Disease       0.97      0.94      0.95        33
+                         Turmeric___Blotch       0.87      0.94      0.91        36
+                      Turmeric___Leaf_Spot       0.90      0.93      0.92        29
+                        Turmeric___healthy       0.97      1.00      0.98        32
+                            Unknown___leaf       1.00      0.99      0.99      1343
+
+                                  accuracy                           0.97      9447
+                                 macro avg       0.92      0.93      0.92      9447
+                              weighted avg       0.97      0.97      0.97      9447

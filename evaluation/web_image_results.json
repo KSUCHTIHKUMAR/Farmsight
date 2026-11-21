@@ -1,0 +1,290 @@
+[
+  {
+    "path": "evaluation/web_images/tomato_early_blight.jpg",
+    "task": "leaf",
+    "expected_label": "Tomato___Early_blight",
+    "source_page": "https://commons.wikimedia.org/wiki/File:Early_blight_on_tomato_leaves_(7871930010).jpg",
+    "license": "CC BY 2.0",
+    "attribution": "Dwight Sipler",
+    "note": "Expected class follows the Commons file title; the plant diagnosis is not independently verified.",
+    "group": "web_images",
+    "predicted_label": "Tomato___Leaf_Mold",
+    "predicted_name": "Tomato - Leaf Mold",
+    "confidence": 0.6744177341461182,
+    "top_matches_expected": false,
+    "expected_in_top3": true,
+    "prediction_stable": true,
+    "confident": true,
+    "top_guesses": [
+      {
+        "label": "Tomato___Leaf_Mold",
+        "name": "Tomato - Leaf Mold",
+        "prob": 0.6744177341461182
+      },
+      {
+        "label": "Tomato___Bacterial_spot",
+        "name": "Tomato - Bacterial spot",
+        "prob": 0.3165894150733948
+      },
+      {
+        "label": "Tomato___Early_blight",
+        "name": "Tomato - Early blight",
+        "prob": 0.004917929880321026
+      }
+    ]
+  },
+  {
+    "path": "evaluation/web_images/potato_late_blight.jpg",
+    "task": "leaf",
+    "expected_label": "Potato___Late_blight",
+    "source_page": "https://commons.wikimedia.org/wiki/File:Late_blight_on_potato_leaf_2.jpg",
+    "license": "CC BY 3.0 US",
+    "attribution": "Howard F. Schwartz, Colorado State University",
+    "note": "Disease class follows the Commons file title.",
+    "group": "web_images",
+    "predicted_label": "Potato___Late_blight",
+    "predicted_name": "Potato - Late blight",
+    "confidence": 0.7257305383682251,
+    "top_matches_expected": true,
+    "expected_in_top3": true,
+    "prediction_stable": true,
+    "confident": true,
+    "top_guesses": [
+      {
+        "label": "Potato___Late_blight",
+        "name": "Potato - Late blight",
+        "prob": 0.7257305383682251
+      },
+      {
+        "label": "Potato___Early_blight",
+        "name": "Potato - Early blight",
+        "prob": 0.20419922471046448
+      },
+      {
+        "label": "Tomato___Leaf_Mold",
+        "name": "Tomato - Leaf Mold",
+        "prob": 0.06286216527223587
+      }
+    ]
+  },
+  {
+    "path": "evaluation/web_images/potato_healthy.jpg",
+    "task": "leaf",
+    "expected_label": "Potato___healthy",
+    "source_page": "https://commons.wikimedia.org/wiki/File:Healthy_Potato_Plants.jpg",
+    "license": "CC BY-SA 4.0",
+    "attribution": "Ainomugisha Brendah",
+    "note": "Wide field view, unlike the close-up leaf images used for training.",
+    "group": "web_images",
+    "predicted_label": "Tomato___Yellow_Leaf_Curl_Virus",
+    "predicted_name": "Tomato - Yellow Leaf Curl Virus",
+    "confidence": 0.7207001447677612,
+    "top_matches_expected": false,
+    "expected_in_top3": false,
+    "prediction_stable": true,
+    "confident": true,
+    "top_guesses": [
+      {
+        "label": "Tomato___Yellow_Leaf_Curl_Virus",
+        "name": "Tomato - Yellow Leaf Curl Virus",
+        "prob": 0.7207001447677612
+      },
+      {
+        "label": "Potato___Early_blight",
+        "name": "Potato - Early blight",
+        "prob": 0.23860493302345276
+      },
+      {
+        "label": "Tomato___healthy",
+        "name": "Tomato - healthy",
+        "prob": 0.029570341110229492
+      }
+    ]
+  },
+  {
+    "path": "new images/b.jpeg",
+    "task": "produce",
+    "expected_label": "Banana__Healthy",
+    "note": "Expected class inferred from visible content; confirm source annotation.",
+    "group": "workspace_images",
+    "predicted_label": "Banana__Healthy",
+    "predicted_name": "Fresh Banana",
+    "confidence": 0.9999879002571106,
+    "top_matches_expected": true,
+    "expected_in_top3": true,
+    "prediction_stable": true,
+    "confident": true,
+    "top_guesses": [
+      {
+        "label": "Banana__Healthy",
+        "name": "Fresh Banana",
+        "prob": 0.9999879002571106
+      },
+      {
+        "label": "Banana__Rotten",
+        "name": "Rotten Banana",
+        "prob": 1.0742273843789008e-05
+      },
+      {
+        "label": "Grape__Healthy",
+        "name": "Fresh Grape",
+        "prob": 5.200093937673955e-07
+      }
+    ]
+  },
+  {
+    "path": "new images/early blight.jpeg",
+    "task": "leaf",
+    "expected_label": "Tomato___Early_blight",
+    "note": "Filename-derived expected class; image diagnosis is unverified.",
+    "group": "workspace_images",
+    "predicted_label": "Tomato___Leaf_Mold",
+    "predicted_name": "Tomato - Leaf Mold",
+    "confidence": 0.9994289875030518,
+    "top_matches_expected": false,
+    "expected_in_top3": true,
+    "prediction_stable": true,
+    "confident": true,
+    "top_guesses": [
+      {
+        "label": "Tomato___Leaf_Mold",
+        "name": "Tomato - Leaf Mold",
+        "prob": 0.9994289875030518
+      },
+      {
+        "label": "Tomato___Early_blight",
+        "name": "Tomato - Early blight",
+        "prob": 0.00021824533178005368
+      },
+      {
+        "label": "Tomato___Bacterial_spot",
+        "name": "Tomato - Bacterial spot",
+        "prob": 0.0002059132093563676
+      }
+    ]
+  },
+  {
+    "path": "new images/l m.jpeg",
+    "task": "leaf",
+    "expected_label": "Tomato___Leaf_Mold",
+    "note": "Filename-derived expected class; image diagnosis is unverified.",
+    "group": "workspace_images",
+    "predicted_label": "Tomato___Early_blight",
+    "predicted_name": "Tomato - Early blight",
+    "confidence": 0.3980710506439209,
+    "top_matches_expected": false,
+    "expected_in_top3": true,
+    "prediction_stable": false,
+    "confident": false,
+    "top_guesses": [
+      {
+        "label": "Tomato___Early_blight",
+        "name": "Tomato - Early blight",
+        "prob": 0.3980710506439209
+      },
+      {
+        "label": "Tomato___Leaf_Mold",
+        "name": "Tomato - Leaf Mold",
+        "prob": 0.38384631276130676
+      },
+      {
+        "label": "Tomato___Septoria_leaf_spot",
+        "name": "Tomato - Septoria leaf spot",
+        "prob": 0.09925688058137894
+      }
+    ]
+  },
+  {
+    "path": "new images/o.jpeg",
+    "task": "produce",
+    "expected_label": "Orange__Rotten",
+    "note": "Expected class inferred from visible content; confirm source annotation.",
+    "group": "workspace_images",
+    "predicted_label": "Orange__Rotten",
+    "predicted_name": "Rotten Orange",
+    "confidence": 0.9554110765457153,
+    "top_matches_expected": true,
+    "expected_in_top3": true,
+    "prediction_stable": true,
+    "confident": true,
+    "top_guesses": [
+      {
+        "label": "Orange__Rotten",
+        "name": "Rotten Orange",
+        "prob": 0.9554110765457153
+      },
+      {
+        "label": "Pomegranate__Rotten",
+        "name": "Rotten Pomegranate",
+        "prob": 0.023310845717787743
+      },
+      {
+        "label": "Orange__Healthy",
+        "name": "Fresh Orange",
+        "prob": 0.007493487559258938
+      }
+    ]
+  },
+  {
+    "path": "new images/p b.jpeg",
+    "task": "leaf",
+    "expected_label": "Potato___Late_blight",
+    "note": "Filename-derived expected class; image diagnosis is unverified.",
+    "group": "workspace_images",
+    "predicted_label": "Potato___Early_blight",
+    "predicted_name": "Potato - Early blight",
+    "confidence": 0.6616065502166748,
+    "top_matches_expected": false,
+    "expected_in_top3": true,
+    "prediction_stable": false,
+    "confident": false,
+    "top_guesses": [
+      {
+        "label": "Potato___Early_blight",
+        "name": "Potato - Early blight",
+        "prob": 0.6616065502166748
+      },
+      {
+        "label": "Potato___Late_blight",
+        "name": "Potato - Late blight",
+        "prob": 0.3341013789176941
+      },
+      {
+        "label": "Tomato___Leaf_Mold",
+        "name": "Tomato - Leaf Mold",
+        "prob": 0.0020026694983243942
+      }
+    ]
+  },
+  {
+    "path": "new images/p h.jpeg",
+    "task": "leaf",
+    "expected_label": "Potato___healthy",
+    "note": "Expected class inferred from visible content; the image shows a wide plant view.",
+    "group": "workspace_images",
+    "predicted_label": "Tomato___healthy",
+    "predicted_name": "Tomato - healthy",
+    "confidence": 0.9483461976051331,
+    "top_matches_expected": false,
+    "expected_in_top3": false,
+    "prediction_stable": true,
+    "confident": true,
+    "top_guesses": [
+      {
+        "label": "Tomato___healthy",
+        "name": "Tomato - healthy",
+        "prob": 0.9483461976051331
+      },
+      {
+        "label": "Tomato___Leaf_Mold",
+        "name": "Tomato - Leaf Mold",
+        "prob": 0.043093446642160416
+      },
+      {
+        "label": "Potato___Late_blight",
+        "name": "Potato - Late blight",
+        "prob": 0.004708919674158096
+      }
+    ]
+  }
+]

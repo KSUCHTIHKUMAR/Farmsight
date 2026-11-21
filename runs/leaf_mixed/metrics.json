@@ -1,0 +1,150 @@
+{
+  "classes": [
+    "Potato___Early_blight",
+    "Potato___Late_blight",
+    "Potato___healthy",
+    "Tomato___Bacterial_spot",
+    "Tomato___Early_blight",
+    "Tomato___Late_blight",
+    "Tomato___Leaf_Mold",
+    "Tomato___Mosaic_virus",
+    "Tomato___Septoria_leaf_spot",
+    "Tomato___Spider_mites",
+    "Tomato___Target_Spot",
+    "Tomato___Yellow_Leaf_Curl_Virus",
+    "Tomato___healthy"
+  ],
+  "params": 2240525,
+  "train_time_sec": 3022.6,
+  "best_val_acc": 0.9475513428120064,
+  "settings": {
+    "model": "mobilenet",
+    "pretrained": true,
+    "augmentation": true,
+    "class_weights": false,
+    "epochs": 6,
+    "batch": 32,
+    "img": 128,
+    "lr": 0.0003,
+    "seed": 42
+  },
+  "history": {
+    "train_loss": [
+      0.7127223036375809,
+      0.4476988466809124,
+      0.3750738706323542,
+      0.3210623146236266,
+      0.28069076147926225,
+      0.24955007787460504
+    ],
+    "val_loss": [
+      0.42490139006155925,
+      0.2732027330113601,
+      0.22571588886363247,
+      0.19362515746634218,
+      0.1707568919041163,
+      0.2472354555824561
+    ],
+    "train_acc": [
+      0.7594006879263102,
+      0.845099982510348,
+      0.8698186906080569,
+      0.8870168483647175,
+      0.9015915583279893,
+      0.9125517402203697
+    ],
+    "val_acc": [
+      0.8568720379146919,
+      0.9102685624012639,
+      0.9295418641390205,
+      0.9355450236966825,
+      0.9475513428120064,
+      0.9238546603475514
+    ]
+  },
+  "test": {
+    "n_images": 3036,
+    "accuracy": 0.9720026350461133,
+    "macro_f1": 0.9654230510629714,
+    "per_class": {
+      "Potato___Early_blight": {
+        "precision": 0.9943502824858758,
+        "recall": 0.9723756906077348,
+        "f1-score": 0.9832402234636871,
+        "support": 181.0
+      },
+      "Potato___Late_blight": {
+        "precision": 0.8496732026143791,
+        "recall": 0.9774436090225563,
+        "f1-score": 0.9090909090909091,
+        "support": 133.0
+      },
+      "Potato___healthy": {
+        "precision": 0.9259259259259259,
+        "recall": 1.0,
+        "f1-score": 0.9615384615384616,
+        "support": 25.0
+      },
+      "Tomato___Bacterial_spot": {
+        "precision": 0.9777070063694268,
+        "recall": 0.9777070063694268,
+        "f1-score": 0.9777070063694268,
+        "support": 314.0
+      },
+      "Tomato___Early_blight": {
+        "precision": 0.9571428571428572,
+        "recall": 0.9054054054054054,
+        "f1-score": 0.9305555555555556,
+        "support": 148.0
+      },
+      "Tomato___Late_blight": {
+        "precision": 0.9543859649122807,
+        "recall": 0.9096989966555183,
+        "f1-score": 0.9315068493150684,
+        "support": 299.0
+      },
+      "Tomato___Leaf_Mold": {
+        "precision": 0.9554140127388535,
+        "recall": 0.9868421052631579,
+        "f1-score": 0.970873786407767,
+        "support": 152.0
+      },
+      "Tomato___Mosaic_virus": {
+        "precision": 0.96875,
+        "recall": 1.0,
+        "f1-score": 0.9841269841269841,
+        "support": 62.0
+      },
+      "Tomato___Septoria_leaf_spot": {
+        "precision": 0.9844357976653697,
+        "recall": 0.9619771863117871,
+        "f1-score": 0.9730769230769231,
+        "support": 263.0
+      },
+      "Tomato___Spider_mites": {
+        "precision": 0.9772727272727273,
+        "recall": 0.9699248120300752,
+        "f1-score": 0.9735849056603774,
+        "support": 266.0
+      },
+      "Tomato___Target_Spot": {
+        "precision": 0.9574468085106383,
+        "recall": 0.967741935483871,
+        "f1-score": 0.9625668449197861,
+        "support": 186.0
+      },
+      "Tomato___Yellow_Leaf_Curl_Virus": {
+        "precision": 0.992462311557789,
+        "recall": 0.9974747474747475,
+        "f1-score": 0.9949622166246851,
+        "support": 792.0
+      },
+      "Tomato___healthy": {
+        "precision": 1.0,
+        "recall": 0.9953488372093023,
+        "f1-score": 0.9976689976689976,
+        "support": 215.0
+      }
+    }
+  }
+}

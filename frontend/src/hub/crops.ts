@@ -1,0 +1,3098 @@
+// Educational crop data for the Knowledge Hub, Care Guide and Crop Calendar.
+// All timings are approximate ranges for orientation only; they vary with cultivar, climate, location and management.
+
+export type Priority = 'high' | 'medium' | 'low'
+export type TaskKind = 'sow' | 'transplant' | 'irrigation' | 'weeding' | 'nutrient' | 'scouting' | 'harvest' | 'other'
+
+export interface CropDisease {
+  id: string
+  name: string
+  agent: string
+  symptoms: string
+  favoured: string
+  prevention: string
+}
+
+export interface Stage {
+  name: string
+  from: number
+  to: number
+  note: string
+}
+
+export interface TaskTpl {
+  key: string
+  title: string
+  detail: string
+  day: number
+  priority: Priority
+  kind: TaskKind
+}
+
+export interface Crop {
+  id: string
+  name: string
+  group: 'Vegetable' | 'Fruit' | 'Field crop'
+  botanical: string
+  aliases: string[]
+  tint: string
+  tintBg: string
+  types: string[]
+  climate: string
+  seasons: string
+  soil: string
+  ph: string
+  sun: string
+  water: string
+  nutrients: string
+  stages: Stage[]
+  maturity: string
+  pests: string[]
+  diseases: CropDisease[]
+  watchFor: string[]
+  harvest: string[]
+  storage: string[]
+  nutrition: { kcal: number; highlights: string[] }
+  uses: string[]
+  care: { soilPrep: string[]; irrigation: string[]; fertilizer: string[]; prevention: string[]; pests: string[] }
+  plan: {
+    start: string
+    nursery?: { transplantDay: number }
+    horizon: number
+    harvestFrom: number
+    irrigEvery: number
+    weedEvery: number
+    scoutEvery: number
+    nutrientEvery: number
+    harvestNote?: string
+    extra?: TaskTpl[]
+  }
+}
+
+export const ABOUT_TIMINGS =
+  'Timings are approximate and orientation-only. Real schedules depend on variety, climate, location, season and growing conditions.'
+
+export const DEFICIENCIES: { nutrient: string; symptom: string; note: string }[] = [
+  { nutrient: 'Nitrogen (N)', symptom: 'Older, lower leaves turn evenly pale green to yellow; slow, thin growth.', note: 'Mobile in the plant, so older leaves show it first.' },
+  { nutrient: 'Phosphorus (P)', symptom: 'Stunted plants; dark green or purplish tint on older leaves; delayed flowering.', note: 'Often seen in cold or very acidic/alkaline soils.' },
+  { nutrient: 'Potassium (K)', symptom: 'Yellowing then browning or scorching along edges of older leaves; weak stems, poor fruit quality.', note: 'Mobile; older leaves first.' },
+  { nutrient: 'Calcium (Ca)', symptom: 'Distorted young leaves, tip burn, blossom-end rot in fruiting vegetables.', note: 'Frequently linked to irregular watering, not only low soil calcium.' },
+  { nutrient: 'Magnesium (Mg)', symptom: 'Yellowing between the veins of older leaves while veins stay green.', note: 'Common on light, acidic, or potassium-heavy soils.' },
+  { nutrient: 'Sulphur (S)', symptom: 'Uniform pale yellowing of younger leaves.', note: 'Can resemble nitrogen deficiency, but starts on young growth.' },
+  { nutrient: 'Iron (Fe)', symptom: 'Yellowing between veins on the youngest leaves.', note: 'Often caused by high soil pH or waterlogging rather than absent iron.' },
+  { nutrient: 'Zinc (Zn)', symptom: 'Small, bunched leaves with short internodes; interveinal yellowing.', note: 'More likely in alkaline or heavily phosphated soils.' },
+  { nutrient: 'Boron (B)', symptom: 'Brittle, distorted growing tips; cracked or hollow stems and fruit; poor fruit set.', note: 'The gap between deficiency and toxicity is narrow, so test first.' },
+  { nutrient: 'Manganese (Mn)', symptom: 'Interveinal yellowing or speckling on young leaves.', note: 'More common in high-pH soils.' },
+]
+
+export const FERTILIZER_TYPES: { type: string; examples: string; note: string }[] = [
+  { type: 'Organic matter', examples: 'Compost, well-rotted farmyard manure, vermicompost, green manure', note: 'Improves structure and water holding; nutrient content is variable and slower to release.' },
+  { type: 'Nitrogen sources', examples: 'Urea, ammonium sulphate, calcium ammonium nitrate', note: 'Choose by soil pH and crop. Split applications reduce losses.' },
+  { type: 'Phosphorus sources', examples: 'Single superphosphate, DAP', note: 'Phosphorus moves little in soil, so placement near roots matters.' },
+  { type: 'Potassium sources', examples: 'Muriate of potash, sulphate of potash', note: 'Some crops are sensitive to chloride; ask local advisers which form suits yours.' },
+  { type: 'Micronutrient products', examples: 'Zinc sulphate, borax, chelated iron, multi-micronutrient mixes', note: 'Use only when a soil or leaf test or clear local evidence shows a need.' },
+]
+
+const T = (key: string, title: string, detail: string, day: number, priority: Priority, kind: TaskKind): TaskTpl => ({ key, title, detail, day, priority, kind })
+
+export const CROPS: Crop[] = [
+  {
+    "id": "tomato",
+    "name": "Tomato",
+    "group": "Vegetable",
+    "botanical": "Solanum lycopersicum",
+    "aliases": [
+      "Tamatar",
+      "Love apple"
+    ],
+    "tint": "#C83232",
+    "tintBg": "#FCE4E4",
+    "types": [
+      "Determinate (bush, concentrated harvest)",
+      "Indeterminate (vining, staked, long harvest)",
+      "Salad/slicing, cherry, paste and processing types",
+      "Open-pollinated and hybrid cultivars"
+    ],
+    "climate": "Warm-season crop. Grows best in moderate temperatures; fruit set suffers in very hot or very cool spells.",
+    "seasons": "Sown in more than one season in many regions; choose cultivars suited to your local season and heat tolerance.",
+    "soil": "Well-drained loam rich in organic matter. Avoid waterlogged sites.",
+    "ph": "About 6.0 to 6.8",
+    "sun": "Full sun, roughly 6 to 8 hours of direct light.",
+    "water": "Steady, even moisture. Swings between dry and wet promote fruit cracking and blossom-end rot. Drip irrigation keeps leaves dry.",
+    "nutrients": "Heavy feeder. Needs balanced N, P and K; potassium and calcium matter for fruit quality.",
+    "stages": [
+      {
+        "name": "Nursery",
+        "from": 0,
+        "to": 28,
+        "note": "Seedlings are raised before transplanting."
+      },
+      {
+        "name": "Establishment",
+        "from": 28,
+        "to": 42,
+        "note": "Transplants root in."
+      },
+      {
+        "name": "Vegetative growth",
+        "from": 42,
+        "to": 60,
+        "note": "Leaf and shoot growth; staking for indeterminate types."
+      },
+      {
+        "name": "Flowering and fruit set",
+        "from": 60,
+        "to": 85,
+        "note": "Sensitive to heat stress and water swings."
+      },
+      {
+        "name": "Fruit development and ripening",
+        "from": 85,
+        "to": 120,
+        "note": "Harvest begins as fruit colour."
+      }
+    ],
+    "maturity": "Roughly 90 to 120 days from sowing to first harvest for many cultivars, then picking continues for weeks.",
+    "pests": [
+      "Whiteflies (also spread leaf curl virus)",
+      "Fruit borer",
+      "Aphids and thrips",
+      "Spider mites in hot dry spells",
+      "Root-knot nematodes"
+    ],
+    "diseases": [
+      {
+        "id": "early-blight",
+        "name": "Early blight",
+        "agent": "Alternaria fungus",
+        "symptoms": "Dark brown spots with concentric rings on older leaves, often with yellow halos; can reach stems and fruit.",
+        "favoured": "Warm, humid weather, alternating wet and dry spells, stressed plants.",
+        "prevention": "Rotate away from tomato/potato, remove infected lower leaves, mulch to stop soil splash, avoid wetting leaves, keep plants well nourished."
+      },
+      {
+        "id": "late-blight",
+        "name": "Late blight",
+        "agent": "Phytophthora infestans",
+        "symptoms": "Water-soaked, greasy patches that turn brown; white fuzzy growth on leaf undersides in humid conditions; firm brown rot on fruit.",
+        "favoured": "Cool, wet, humid weather. Can spread very fast.",
+        "prevention": "Use healthy transplants, improve airflow, avoid overhead irrigation, remove and destroy infected plants early, and follow local disease alerts."
+      },
+      {
+        "id": "septoria",
+        "name": "Septoria leaf spot",
+        "agent": "Septoria lycopersici",
+        "symptoms": "Many small round spots with grey-white centres and dark edges, sometimes with tiny black dots, starting on lower leaves.",
+        "favoured": "Warm, wet, splashing conditions and long leaf-wetness.",
+        "prevention": "Remove lower infected leaves, mulch, stake plants, rotate crops, clear crop debris after harvest."
+      },
+      {
+        "id": "leaf-curl",
+        "name": "Leaf curl virus",
+        "agent": "Whitefly-transmitted viruses",
+        "symptoms": "Upward curling and crinkling of leaves, stunting, fewer fruit.",
+        "favoured": "High whitefly pressure.",
+        "prevention": "Use virus-free seedlings, protect nurseries with nets, rogue out affected plants early, manage weeds and whiteflies."
+      },
+      {
+        "id": "blossom-end-rot",
+        "name": "Blossom-end rot (physiological)",
+        "agent": "Not a pathogen; calcium transport disorder",
+        "symptoms": "Sunken dark leathery patch at the blossom end of fruit.",
+        "favoured": "Irregular watering, rapid growth, root damage.",
+        "prevention": "Keep moisture even, mulch, avoid excess nitrogen, and confirm calcium status with a soil test."
+      }
+    ],
+    "watchFor": [
+      "Blossom-end rot (calcium uptake and water irregularity)",
+      "Interveinal yellowing of older leaves (possible magnesium)",
+      "Purplish leaves in cold soil (phosphorus uptake)"
+    ],
+    "harvest": [
+      "Pick when fruit shows its cultivar colour; for distant markets, pick at breaker/colour-turning stage.",
+      "Harvest every few days once picking starts."
+    ],
+    "storage": [
+      "Do not refrigerate ripe fruit for long; chilling harms flavour and texture.",
+      "Handle gently, grade out cracked or diseased fruit, keep shaded and ventilated."
+    ],
+    "nutrition": {
+      "kcal": 18,
+      "highlights": [
+        "Vitamin C",
+        "Potassium",
+        "Lycopene (red types)"
+      ]
+    },
+    "uses": [
+      "Fresh in salads",
+      "Curries, gravies and sauces",
+      "Soups, purée, ketchup and sun-dried products"
+    ],
+    "care": {
+      "soilPrep": [
+        "Deep tillage and incorporate compost or farmyard manure before transplanting.",
+        "Form raised beds on heavy soils to improve drainage."
+      ],
+      "irrigation": [
+        "Water deeply and regularly rather than frequently and lightly.",
+        "Reduce irrigation a little as fruit ripen to limit cracking, but never let soil dry out fully."
+      ],
+      "fertilizer": [
+        "Base the plan on a soil test; split nitrogen across growth stages.",
+        "Increase potassium emphasis at fruiting; keep irrigation even for calcium uptake."
+      ],
+      "prevention": [
+        "Use rotation, clean tools, staking and airflow to cut foliar disease.",
+        "Scout weekly and remove infected leaves promptly."
+      ],
+      "pests": [
+        "Use yellow sticky traps and nets for whitefly; monitor fruit borer eggs and larvae.",
+        "Choose registered, crop-appropriate products only if thresholds are exceeded."
+      ]
+    },
+    "plan": {
+      "start": "Sow seeds in nursery",
+      "nursery": {
+        "transplantDay": 28
+      },
+      "horizon": 140,
+      "harvestFrom": 95,
+      "irrigEvery": 4,
+      "weedEvery": 14,
+      "scoutEvery": 7,
+      "nutrientEvery": 21,
+      "extra": [
+        {
+          "key": "stake",
+          "title": "Stake or trellis plants",
+          "detail": "Support indeterminate types early to keep fruit off the soil.",
+          "day": 42,
+          "priority": "medium",
+          "kind": "other"
+        }
+      ]
+    }
+  },
+  {
+    "id": "potato",
+    "name": "Potato",
+    "group": "Vegetable",
+    "botanical": "Solanum tuberosum",
+    "aliases": [
+      "Aloo",
+      "Batata"
+    ],
+    "tint": "#A9743A",
+    "tintBg": "#F3E6D3",
+    "types": [
+      "Early, mid-season and late maturing cultivars",
+      "Table, processing (chips/fries) and seed potato crops",
+      "Examples include Kufri Jyoti and Kufri Bahar in India; availability varies by region"
+    ],
+    "climate": "Cool-season crop. Tubers form best in mild temperatures; heat reduces tuber set and bulking.",
+    "seasons": "Grown in cool seasons or at altitude; planting windows depend strongly on local winter or monsoon patterns.",
+    "soil": "Loose, well-drained sandy loam or loam rich in organic matter.",
+    "ph": "About 5.2 to 6.5 (very high pH favours common scab)",
+    "sun": "Full sun.",
+    "water": "Even moisture, especially during tuber initiation and bulking. Avoid waterlogging, which encourages rots.",
+    "nutrients": "Responds to balanced N, P and K. Excess nitrogen delays tuber maturity.",
+    "stages": [
+      {
+        "name": "Sprouting and emergence",
+        "from": 0,
+        "to": 20,
+        "note": "Healthy seed tubers sprout and emerge."
+      },
+      {
+        "name": "Vegetative growth",
+        "from": 20,
+        "to": 45,
+        "note": "Haulm develops; earthing up."
+      },
+      {
+        "name": "Tuber initiation",
+        "from": 35,
+        "to": 55,
+        "note": "Water stress now can reduce tuber number."
+      },
+      {
+        "name": "Tuber bulking",
+        "from": 50,
+        "to": 90,
+        "note": "Tubers fill."
+      },
+      {
+        "name": "Maturation",
+        "from": 90,
+        "to": 120,
+        "note": "Haulm yellows and dies back; skin sets."
+      }
+    ],
+    "maturity": "About 70 to 120 days, depending on cultivar and conditions.",
+    "pests": [
+      "Aphids (virus vectors)",
+      "Cutworms and white grubs",
+      "Potato tuber moth",
+      "Colorado beetle (where present)",
+      "Nematodes"
+    ],
+    "diseases": [
+      {
+        "id": "late-blight",
+        "name": "Late blight",
+        "agent": "Phytophthora infestans",
+        "symptoms": "Water-soaked dark patches on leaves, white mould on undersides in humidity, blackened stems, and firm brown rot in tubers.",
+        "favoured": "Cool, wet, humid weather. Can destroy a crop quickly.",
+        "prevention": "Use certified disease-free seed, keep tubers well covered by earthing up, avoid overhead irrigation, destroy volunteer plants and cull piles, and follow local alerts."
+      },
+      {
+        "id": "early-blight",
+        "name": "Early blight",
+        "agent": "Alternaria solani",
+        "symptoms": "Brown spots with concentric rings on older leaves; tuber lesions are dark and sunken.",
+        "favoured": "Warm weather and plant stress, alternating wet and dry spells.",
+        "prevention": "Rotate crops, maintain fertility and moisture, remove debris, use resistant cultivars where available."
+      },
+      {
+        "id": "common-scab",
+        "name": "Common scab",
+        "agent": "Streptomyces species",
+        "symptoms": "Rough, corky patches on tuber skin. Mostly cosmetic.",
+        "favoured": "Dry soil during tuber initiation and higher soil pH.",
+        "prevention": "Keep soil moist during early tuber set, avoid liming just before potatoes, rotate crops, choose tolerant cultivars."
+      }
+    ],
+    "watchFor": [
+      "Hollow heart or growth cracks with uneven watering",
+      "Pale leaves from low nitrogen",
+      "Potassium shortage shown as scorched leaf edges"
+    ],
+    "harvest": [
+      "Harvest after haulm has died back and skins no longer rub off easily.",
+      "Dig on dry days and avoid cuts and bruises."
+    ],
+    "storage": [
+      "Cure tubers in a cool, shaded, ventilated place so skin sets and small wounds heal.",
+      "Store in the dark; light turns tubers green and toxic (solanine). Do not eat green or sprouted parts."
+    ],
+    "nutrition": {
+      "kcal": 77,
+      "highlights": [
+        "Carbohydrate (starch)",
+        "Potassium",
+        "Vitamin C",
+        "Vitamin B6"
+      ]
+    },
+    "uses": [
+      "Boiled, baked, roasted or fried",
+      "Curries, snacks, flour and starch"
+    ],
+    "care": {
+      "soilPrep": [
+        "Loosen soil deeply and incorporate compost or manure.",
+        "Use certified seed tubers and form ridges for earthing up."
+      ],
+      "irrigation": [
+        "Keep moisture even through tuber initiation and bulking.",
+        "Stop irrigation as the crop matures so skins can set."
+      ],
+      "fertilizer": [
+        "Follow a soil test; avoid heavy late nitrogen that delays maturity.",
+        "Potassium supports tuber quality; choose sources according to local advice."
+      ],
+      "prevention": [
+        "Rotate away from tomato, brinjal and chilli.",
+        "Scout leaves weekly in cool humid weather, and destroy infected plants."
+      ],
+      "pests": [
+        "Monitor aphids as virus vectors; control volunteers and weeds.",
+        "Rotate and avoid planting after grass sod to limit white grubs and wireworm."
+      ]
+    },
+    "plan": {
+      "start": "Plant seed tubers",
+      "horizon": 120,
+      "harvestFrom": 90,
+      "irrigEvery": 7,
+      "weedEvery": 14,
+      "scoutEvery": 7,
+      "nutrientEvery": 21,
+      "extra": [
+        {
+          "key": "earth",
+          "title": "Earth up ridges",
+          "detail": "Hill soil around stems to cover developing tubers and reduce greening.",
+          "day": 30,
+          "priority": "high",
+          "kind": "other"
+        }
+      ]
+    }
+  },
+  {
+    "id": "onion",
+    "name": "Onion",
+    "group": "Vegetable",
+    "botanical": "Allium cepa",
+    "aliases": [
+      "Pyaz",
+      "Kanda"
+    ],
+    "tint": "#9B5FA8",
+    "tintBg": "#EEDDF2",
+    "types": [
+      "Red, white and yellow bulb types",
+      "Short-day, intermediate-day and long-day cultivars",
+      "Grown from seed, sets, or transplanted seedlings"
+    ],
+    "climate": "Cool for leaf growth, then warm and dry for bulbing and maturing. Day-length response is important.",
+    "seasons": "Different cultivars suit different seasons; choose day-length type to match your latitude.",
+    "soil": "Fertile, well-drained loam; shallow rooted, so soil must hold moisture without waterlogging.",
+    "ph": "About 6.0 to 7.0",
+    "sun": "Full sun.",
+    "water": "Frequent light-to-moderate irrigation early, then reduced as bulbs mature.",
+    "nutrients": "Sensitive to nitrogen and sulphur supply; shallow roots need nutrients near the surface.",
+    "stages": [
+      {
+        "name": "Nursery",
+        "from": 0,
+        "to": 50,
+        "note": "Seedlings raised for transplant."
+      },
+      {
+        "name": "Establishment",
+        "from": 50,
+        "to": 70,
+        "note": "Roots take hold."
+      },
+      {
+        "name": "Leaf growth",
+        "from": 70,
+        "to": 110,
+        "note": "Foliage builds the bulb capacity."
+      },
+      {
+        "name": "Bulb development",
+        "from": 110,
+        "to": 145,
+        "note": "Bulbs swell."
+      },
+      {
+        "name": "Maturation",
+        "from": 145,
+        "to": 170,
+        "note": "Tops fall over and dry."
+      }
+    ],
+    "maturity": "Roughly 4 to 6 months from sowing for typical transplanted crops.",
+    "pests": [
+      "Thrips",
+      "Onion fly maggots",
+      "Cutworms",
+      "Mites"
+    ],
+    "diseases": [
+      {
+        "id": "purple-blotch",
+        "name": "Purple blotch",
+        "agent": "Alternaria porri",
+        "symptoms": "Small white sunken spots that enlarge into purple-brown blotches with yellow edges on leaves and flower stalks.",
+        "favoured": "Warm, humid conditions.",
+        "prevention": "Rotate crops, avoid dense plantings, manage leaf wetness, remove debris."
+      },
+      {
+        "id": "downy-mildew",
+        "name": "Downy mildew",
+        "agent": "Peronospora destructor",
+        "symptoms": "Pale oval patches with grey-violet fuzz on leaves in cool humid weather.",
+        "favoured": "Cool, damp, humid spells.",
+        "prevention": "Use healthy planting material, improve drainage, rotate crops."
+      },
+      {
+        "id": "basal-rot",
+        "name": "Basal rot and neck rot",
+        "agent": "Fusarium and other fungi",
+        "symptoms": "Yellowing tops, soft brown rotting at the base; storage rot at the neck.",
+        "favoured": "Warm wet soils, injury at harvest, poorly cured bulbs.",
+        "prevention": "Rotate crops, avoid injuries, cure bulbs thoroughly before storage."
+      }
+    ],
+    "watchFor": [
+      "Yellow tips from sulphur or nitrogen shortage",
+      "Thick necks if excess nitrogen is applied late"
+    ],
+    "harvest": [
+      "Harvest once tops have fallen over and begun drying.",
+      "Lift on dry days and cure in shade."
+    ],
+    "storage": [
+      "Cure until necks are dry and tight.",
+      "Store in cool, dry, well-ventilated conditions and discard damaged or soft bulbs."
+    ],
+    "nutrition": {
+      "kcal": 40,
+      "highlights": [
+        "Vitamin C (small)",
+        "Fibre",
+        "Sulphur compounds"
+      ]
+    },
+    "uses": [
+      "Base of curries and sauces",
+      "Raw in salads",
+      "Pickling and frying"
+    ],
+    "care": {
+      "soilPrep": [
+        "Prepare a fine, firm seedbed with compost incorporated.",
+        "Level carefully so irrigation is even."
+      ],
+      "irrigation": [
+        "Water lightly and often early on; taper off before harvest.",
+        "Avoid waterlogging, which invites rots."
+      ],
+      "fertilizer": [
+        "Use soil test results; split nitrogen and stop applying it before bulbs mature.",
+        "Ensure adequate sulphur where tests indicate need."
+      ],
+      "prevention": [
+        "Rotate with non-allium crops.",
+        "Space plants for airflow and remove infected foliage."
+      ],
+      "pests": [
+        "Scout for silvery thrips damage on leaves.",
+        "Keep weeds down as they harbour thrips."
+      ]
+    },
+    "plan": {
+      "start": "Sow seeds in nursery",
+      "nursery": {
+        "transplantDay": 50
+      },
+      "horizon": 175,
+      "harvestFrom": 150,
+      "irrigEvery": 7,
+      "weedEvery": 14,
+      "scoutEvery": 7,
+      "nutrientEvery": 21,
+      "extra": [
+        {
+          "key": "stop-water",
+          "title": "Reduce irrigation for maturity",
+          "detail": "Ease off watering as tops begin to fall.",
+          "day": 135,
+          "priority": "medium",
+          "kind": "irrigation"
+        }
+      ]
+    }
+  },
+  {
+    "id": "mango",
+    "name": "Mango",
+    "group": "Fruit",
+    "botanical": "Mangifera indica",
+    "aliases": [
+      "Aam"
+    ],
+    "tint": "#E09A1F",
+    "tintBg": "#FBEBC8",
+    "types": [
+      "Grafted named cultivars such as Alphonso, Dasheri, Kesar, Langra and Totapuri (availability varies by region)",
+      "Table, processing and pickling types",
+      "Seedling mangoes"
+    ],
+    "climate": "Tropical to subtropical. A dry spell before flowering helps; frost damages young trees.",
+    "seasons": "Trees flower once a year in many regions, mostly in the dry cooler season. Fruit ripens in the following warm months.",
+    "soil": "Deep, well-drained soil; avoids waterlogging.",
+    "ph": "About 5.5 to 7.5",
+    "sun": "Full sun.",
+    "water": "Regular watering while young; mature trees need less. Avoid irrigation during flower induction where local advice says so.",
+    "nutrients": "Needs N, P and K plus zinc and boron in many soils.",
+    "stages": [
+      {
+        "name": "Establishment",
+        "from": 0,
+        "to": 365,
+        "note": "Grafted plant takes root and develops its structure."
+      },
+      {
+        "name": "Young tree growth",
+        "from": 365,
+        "to": 1095,
+        "note": "Training and canopy formation; fruiting begins later."
+      },
+      {
+        "name": "Flowering and fruit set",
+        "from": 1095,
+        "to": 1300,
+        "note": "Seasonal, begins from about the third to fifth year for many grafts."
+      },
+      {
+        "name": "Fruit development",
+        "from": 1300,
+        "to": 1450,
+        "note": "Roughly 3 to 5 months from fruit set for many cultivars."
+      }
+    ],
+    "maturity": "Grafted trees often begin bearing in 3 to 5 years. Fruit need months to mature after fruit set.",
+    "pests": [
+      "Mango hoppers",
+      "Fruit flies",
+      "Stone weevil",
+      "Mealybugs",
+      "Stem borers"
+    ],
+    "diseases": [
+      {
+        "id": "anthracnose",
+        "name": "Anthracnose",
+        "agent": "Colletotrichum gloeosporioides",
+        "symptoms": "Black spots on flowers, young fruit and leaves; fruit rot after harvest.",
+        "favoured": "Wet, humid weather during flowering and fruiting.",
+        "prevention": "Prune for airflow, remove infected parts, handle fruit carefully, and follow local spray advice."
+      },
+      {
+        "id": "powdery-mildew",
+        "name": "Powdery mildew",
+        "agent": "Oidium mangiferae",
+        "symptoms": "White powdery coating on panicles causing flower drop.",
+        "favoured": "Cool nights, humid mornings during flowering.",
+        "prevention": "Monitor panicles and take local advice at flowering."
+      },
+      {
+        "id": "malformation",
+        "name": "Mango malformation",
+        "agent": "Fusarium-associated disorder",
+        "symptoms": "Crowded, distorted flower panicles or shoots.",
+        "favoured": "Spread on infected planting material.",
+        "prevention": "Plant clean material and prune and destroy affected parts."
+      }
+    ],
+    "watchFor": [
+      "Alternate bearing (heavy one year, light the next)",
+      "Zinc and boron shortages"
+    ],
+    "harvest": [
+      "Pick at physiological maturity indicated by shoulders filling out and colour change; maturity indices vary by cultivar.",
+      "Harvest with a short stalk to limit sap burn and stem-end rot."
+    ],
+    "storage": [
+      "Ripen at ambient temperature; chilling below safe limits harms fruit.",
+      "Sort out damaged fruit before storage or transport."
+    ],
+    "nutrition": {
+      "kcal": 60,
+      "highlights": [
+        "Vitamin C",
+        "Vitamin A precursors",
+        "Fibre"
+      ]
+    },
+    "uses": [
+      "Fresh fruit",
+      "Pulp, juice, pickles and chutneys",
+      "Dried slices"
+    ],
+    "care": {
+      "soilPrep": [
+        "Dig large pits and fill with topsoil mixed with compost.",
+        "Plant grafted saplings at the same depth they grew in the nursery."
+      ],
+      "irrigation": [
+        "Water young trees regularly in the dry season.",
+        "Follow local advice on irrigation timing around flowering."
+      ],
+      "fertilizer": [
+        "Base programmes on tree age and soil or leaf testing.",
+        "Consider zinc and boron support only when tests or local evidence show a need."
+      ],
+      "prevention": [
+        "Prune for airflow and remove dead wood.",
+        "Keep the orchard floor clean of rotting fruit."
+      ],
+      "pests": [
+        "Scout flowers for hoppers.",
+        "Use bagging or traps for fruit fly where practical."
+      ]
+    },
+    "plan": {
+      "start": "Plant grafted sapling",
+      "horizon": 365,
+      "harvestFrom": 99999,
+      "irrigEvery": 14,
+      "weedEvery": 30,
+      "scoutEvery": 14,
+      "nutrientEvery": 60,
+      "harvestNote": "Tree crop. Bearing normally starts after several years, so this calendar only covers the first year.",
+      "extra": [
+        {
+          "key": "prune",
+          "title": "Training and light formative pruning",
+          "detail": "Shape the young tree for strong structure.",
+          "day": 180,
+          "priority": "medium",
+          "kind": "other"
+        }
+      ]
+    }
+  },
+  {
+    "id": "banana",
+    "name": "Banana",
+    "group": "Fruit",
+    "botanical": "Musa spp.",
+    "aliases": [
+      "Kela",
+      "Plantain"
+    ],
+    "tint": "#C9A21C",
+    "tintBg": "#FAF0C6",
+    "types": [
+      "Dessert bananas such as Cavendish",
+      "Cooking bananas and plantains",
+      "Propagated by suckers or tissue-culture plantlets"
+    ],
+    "climate": "Warm, humid tropical conditions. Sensitive to cold, strong wind and drought.",
+    "seasons": "Planted when conditions suit establishment and irrigation is available; follows local calendars.",
+    "soil": "Deep, fertile, well-drained loam rich in organic matter.",
+    "ph": "About 6.0 to 7.0",
+    "sun": "Full sun to light shade.",
+    "water": "High water demand and regular supply; does not tolerate waterlogging.",
+    "nutrients": "Very heavy feeder, especially for potassium and nitrogen.",
+    "stages": [
+      {
+        "name": "Establishment",
+        "from": 0,
+        "to": 60,
+        "note": "Plantlet roots in."
+      },
+      {
+        "name": "Vegetative growth",
+        "from": 60,
+        "to": 240,
+        "note": "Leaves emerge; desuckering."
+      },
+      {
+        "name": "Flowering (shooting)",
+        "from": 240,
+        "to": 300,
+        "note": "Inflorescence emerges."
+      },
+      {
+        "name": "Bunch development",
+        "from": 300,
+        "to": 400,
+        "note": "Fingers fill."
+      },
+      {
+        "name": "Harvest",
+        "from": 360,
+        "to": 450,
+        "note": "Depends on cultivar and conditions."
+      }
+    ],
+    "maturity": "Often around 10 to 15 months from planting to harvest for many cultivars, strongly dependent on climate and management.",
+    "pests": [
+      "Banana weevil",
+      "Nematodes",
+      "Aphids (vector of bunchy top)",
+      "Thrips on fruit"
+    ],
+    "diseases": [
+      {
+        "id": "panama-wilt",
+        "name": "Panama disease (Fusarium wilt)",
+        "agent": "Fusarium oxysporum f. sp. cubense",
+        "symptoms": "Yellowing of older leaves, wilting, split pseudostem base, brown vascular tissue.",
+        "favoured": "Infested soil spreads on tools, water and planting material.",
+        "prevention": "Use clean plantlets, avoid infested fields, sanitise tools, and consider resistant cultivars. Follow local quarantine rules."
+      },
+      {
+        "id": "sigatoka",
+        "name": "Sigatoka leaf spot",
+        "agent": "Pseudocercospora species",
+        "symptoms": "Yellow streaks that become brown lesions with grey centres; leaves dry early.",
+        "favoured": "Warm, humid, wet weather.",
+        "prevention": "Remove affected leaves, improve drainage and spacing, and follow local monitoring advice."
+      },
+      {
+        "id": "bunchy-top",
+        "name": "Bunchy top virus",
+        "agent": "Virus spread by banana aphids",
+        "symptoms": "Stunted plants with narrow, upright leaves in a bunched rosette.",
+        "favoured": "Infected suckers and aphid movement.",
+        "prevention": "Use virus-indexed plantlets and destroy infected plants promptly. Report as local rules require."
+      }
+    ],
+    "watchFor": [
+      "Potassium shortage with yellow-orange leaf edges",
+      "Wind damage and toppling of laden plants"
+    ],
+    "harvest": [
+      "Harvest when fingers fill and angles round off; maturity is judged by cultivar-specific indicators.",
+      "Cut the bunch carefully to avoid latex staining and bruises."
+    ],
+    "storage": [
+      "Ripen at ambient temperature; chilling can darken skin.",
+      "Keep away from ripening fruit that release ethylene if you want to delay ripening."
+    ],
+    "nutrition": {
+      "kcal": 89,
+      "highlights": [
+        "Potassium",
+        "Vitamin B6",
+        "Carbohydrate"
+      ]
+    },
+    "uses": [
+      "Fresh dessert fruit",
+      "Cooking bananas, chips and flour",
+      "Smoothies and baking"
+    ],
+    "care": {
+      "soilPrep": [
+        "Prepare pits or beds with compost and ensure drainage.",
+        "Use clean, healthy planting material only."
+      ],
+      "irrigation": [
+        "Provide regular irrigation, avoiding waterlogging.",
+        "Mulch to conserve moisture."
+      ],
+      "fertilizer": [
+        "Plan around soil and leaf testing, with split applications.",
+        "Potassium needs are high; choose sources by local advice."
+      ],
+      "prevention": [
+        "Sanitise tools and remove old diseased leaves.",
+        "Keep desuckering routine to manage plant density."
+      ],
+      "pests": [
+        "Clean up pseudostem residue to reduce weevils.",
+        "Monitor for nematode symptoms in roots."
+      ]
+    },
+    "plan": {
+      "start": "Plant sucker or tissue-culture plantlet",
+      "horizon": 450,
+      "harvestFrom": 360,
+      "irrigEvery": 5,
+      "weedEvery": 21,
+      "scoutEvery": 14,
+      "nutrientEvery": 30,
+      "extra": [
+        {
+          "key": "desucker",
+          "title": "Desuckering and mulching",
+          "detail": "Keep the selected follower and remove excess suckers.",
+          "day": 120,
+          "priority": "medium",
+          "kind": "other"
+        },
+        {
+          "key": "prop",
+          "title": "Check bunch support",
+          "detail": "Prop heavy plants against wind where needed.",
+          "day": 300,
+          "priority": "medium",
+          "kind": "other"
+        }
+      ]
+    }
+  },
+  {
+    "id": "orange",
+    "name": "Orange",
+    "group": "Fruit",
+    "botanical": "Citrus × sinensis (and mandarin types)",
+    "aliases": [
+      "Santra",
+      "Narangi",
+      "Sweet orange",
+      "Mandarin"
+    ],
+    "tint": "#E87A1E",
+    "tintBg": "#FDE5D0",
+    "types": [
+      "Sweet oranges",
+      "Mandarins and loose-skinned types (such as Nagpur-type mandarins in India)",
+      "Grafted onto selected rootstocks"
+    ],
+    "climate": "Subtropical to tropical; frost damages trees. Cool nights help colour development.",
+    "seasons": "Flowering and fruiting depend on region and cultivar; fruit often needs many months to mature.",
+    "soil": "Deep, well-drained loam; poor drainage encourages root diseases.",
+    "ph": "About 6.0 to 7.0",
+    "sun": "Full sun.",
+    "water": "Regular watering, particularly during flowering and fruit growth.",
+    "nutrients": "Needs N, P, K plus zinc, manganese, iron and magnesium in many soils.",
+    "stages": [
+      {
+        "name": "Establishment",
+        "from": 0,
+        "to": 365,
+        "note": "Grafted tree establishes."
+      },
+      {
+        "name": "Young tree growth",
+        "from": 365,
+        "to": 1095,
+        "note": "Canopy forms; early fruit removed in some systems."
+      },
+      {
+        "name": "Flowering and fruit set",
+        "from": 1095,
+        "to": 1250,
+        "note": "Seasonal."
+      },
+      {
+        "name": "Fruit development",
+        "from": 1250,
+        "to": 1550,
+        "note": "Often 7 to 12 months from flowering to maturity."
+      }
+    ],
+    "maturity": "Grafted trees often bear from about 3 to 5 years. Fruit mature several months after flowering.",
+    "pests": [
+      "Citrus leaf miner",
+      "Asian citrus psyllid (vector of greening)",
+      "Scale insects and mealybugs",
+      "Fruit-piercing moths",
+      "Mites"
+    ],
+    "diseases": [
+      {
+        "id": "canker",
+        "name": "Citrus canker",
+        "agent": "Xanthomonas citri",
+        "symptoms": "Raised corky lesions with yellow halos on leaves, twigs and fruit.",
+        "favoured": "Wind-driven rain and leaf-miner injury.",
+        "prevention": "Use clean nursery stock, windbreaks, and follow local regulations on infected material."
+      },
+      {
+        "id": "greening",
+        "name": "Citrus greening (HLB)",
+        "agent": "Candidatus Liberibacter, spread by psyllids",
+        "symptoms": "Blotchy mottled leaves, lopsided bitter fruit that stay green at the base, twig dieback.",
+        "favoured": "Psyllid presence.",
+        "prevention": "Use certified disease-free plants, manage psyllids, remove infected trees as local rules require."
+      },
+      {
+        "id": "gummosis",
+        "name": "Gummosis and root rot",
+        "agent": "Phytophthora species",
+        "symptoms": "Gum oozing from bark, bark lesions, decline.",
+        "favoured": "Waterlogging and deep planting.",
+        "prevention": "Plant with the graft union above ground, ensure drainage, and avoid trunk injury."
+      }
+    ],
+    "watchFor": [
+      "Interveinal yellowing from zinc, iron or manganese shortage",
+      "Fruit drop under water stress"
+    ],
+    "harvest": [
+      "Harvest when fruit reach cultivar-appropriate maturity; peel colour alone can mislead.",
+      "Clip rather than pull to avoid peel damage."
+    ],
+    "storage": [
+      "Store cool and ventilated.",
+      "Discard fruit with mould and avoid piling."
+    ],
+    "nutrition": {
+      "kcal": 47,
+      "highlights": [
+        "Vitamin C",
+        "Folate",
+        "Fibre"
+      ]
+    },
+    "uses": [
+      "Fresh fruit and juice",
+      "Marmalade and peel flavouring"
+    ],
+    "care": {
+      "soilPrep": [
+        "Dig planting pits with compost; keep the graft union above soil.",
+        "Choose well-drained sites."
+      ],
+      "irrigation": [
+        "Water young trees regularly; mulch basins.",
+        "Avoid wetting the trunk."
+      ],
+      "fertilizer": [
+        "Base programmes on leaf and soil tests.",
+        "Correct micronutrient issues only after confirming them."
+      ],
+      "prevention": [
+        "Use certified disease-free planting stock.",
+        "Prune dead wood and remove diseased twigs."
+      ],
+      "pests": [
+        "Monitor flushes for leaf miner and psyllids.",
+        "Support natural enemies with careful pesticide choices."
+      ]
+    },
+    "plan": {
+      "start": "Plant grafted sapling",
+      "horizon": 365,
+      "harvestFrom": 99999,
+      "irrigEvery": 14,
+      "weedEvery": 30,
+      "scoutEvery": 14,
+      "nutrientEvery": 60,
+      "harvestNote": "Tree crop. Bearing normally starts after several years, so this calendar only covers the first year."
+    }
+  },
+  {
+    "id": "apple",
+    "name": "Apple",
+    "group": "Fruit",
+    "botanical": "Malus domestica",
+    "aliases": [
+      "Seb"
+    ],
+    "tint": "#B8302E",
+    "tintBg": "#F8DCDB",
+    "types": [
+      "Dessert, cooking and cider cultivars",
+      "Grafted onto rootstocks that control tree size",
+      "Spur-type and standard cultivars"
+    ],
+    "climate": "Temperate. Needs winter chilling and cool growing conditions; late frost during bloom can destroy a crop.",
+    "seasons": "Dormant in winter, blossom in spring, fruit in summer to autumn depending on cultivar.",
+    "soil": "Deep, fertile, well-drained loam.",
+    "ph": "About 6.0 to 7.0",
+    "sun": "Full sun.",
+    "water": "Even moisture; avoid drought stress and waterlogging.",
+    "nutrients": "Needs balanced N, P, K, with calcium and boron important for fruit quality.",
+    "stages": [
+      {
+        "name": "Establishment",
+        "from": 0,
+        "to": 365,
+        "note": "Grafted tree establishes."
+      },
+      {
+        "name": "Young tree training",
+        "from": 365,
+        "to": 1095,
+        "note": "Scaffold formation and pruning."
+      },
+      {
+        "name": "Blossom and fruit set",
+        "from": 1095,
+        "to": 1250,
+        "note": "Spring bloom."
+      },
+      {
+        "name": "Fruit growth and ripening",
+        "from": 1250,
+        "to": 1450,
+        "note": "Typically a few months from bloom to harvest, depending on cultivar."
+      }
+    ],
+    "maturity": "Trees on dwarfing rootstocks may bear in 2 to 4 years; standard trees can take longer.",
+    "pests": [
+      "Codling moth",
+      "Woolly apple aphid",
+      "Mites",
+      "San José scale"
+    ],
+    "diseases": [
+      {
+        "id": "apple-scab",
+        "name": "Apple scab",
+        "agent": "Venturia inaequalis",
+        "symptoms": "Olive-green to black spots on leaves and scabby lesions on fruit.",
+        "favoured": "Cool, wet spring weather.",
+        "prevention": "Rake and manage fallen leaves, prune for airflow, choose resistant cultivars, and follow local forecasts."
+      },
+      {
+        "id": "fire-blight",
+        "name": "Fire blight",
+        "agent": "Erwinia amylovora",
+        "symptoms": "Blossoms and shoots wilt and blacken, bending into a shepherd’s crook.",
+        "favoured": "Warm, wet weather at bloom.",
+        "prevention": "Prune out infected wood well below symptoms with sanitised tools, and avoid excess nitrogen."
+      },
+      {
+        "id": "powdery-mildew",
+        "name": "Powdery mildew",
+        "agent": "Podosphaera leucotricha",
+        "symptoms": "White powdery coating on leaves and shoots, causing distortion.",
+        "favoured": "Warm, dry days and humid nights.",
+        "prevention": "Prune infected shoots and plant less susceptible cultivars."
+      }
+    ],
+    "watchFor": [
+      "Bitter pit (calcium related) in susceptible cultivars",
+      "Biennial bearing"
+    ],
+    "harvest": [
+      "Use cultivar-specific maturity indices such as background colour and ease of separation.",
+      "Pick carefully to avoid bruises."
+    ],
+    "storage": [
+      "Cool storage greatly extends shelf life.",
+      "Sort out bruised or decayed fruit, which can spoil neighbours."
+    ],
+    "nutrition": {
+      "kcal": 52,
+      "highlights": [
+        "Fibre",
+        "Vitamin C (small)",
+        "Polyphenols in skin"
+      ]
+    },
+    "uses": [
+      "Fresh fruit",
+      "Juice, cider, sauce and baking",
+      "Dried slices"
+    ],
+    "care": {
+      "soilPrep": [
+        "Prepare wide planting holes and keep the graft union above soil.",
+        "Choose sites with good air drainage to reduce frost risk."
+      ],
+      "irrigation": [
+        "Water young trees regularly in dry spells.",
+        "Mulch and keep a weed-free strip."
+      ],
+      "fertilizer": [
+        "Plan from soil and leaf tests.",
+        "Avoid excess nitrogen, which increases fire blight and softens fruit."
+      ],
+      "prevention": [
+        "Winter pruning for open canopies.",
+        "Remove mummified fruit and fallen leaves."
+      ],
+      "pests": [
+        "Use pheromone traps for codling moth monitoring.",
+        "Protect beneficial insects."
+      ]
+    },
+    "plan": {
+      "start": "Plant grafted tree",
+      "horizon": 365,
+      "harvestFrom": 99999,
+      "irrigEvery": 14,
+      "weedEvery": 30,
+      "scoutEvery": 14,
+      "nutrientEvery": 60,
+      "harvestNote": "Tree crop. Bearing normally starts after several years, so this calendar only covers the first year.",
+      "extra": [
+        {
+          "key": "train",
+          "title": "Training and pruning at dormancy",
+          "detail": "Establish tree structure while dormant.",
+          "day": 90,
+          "priority": "medium",
+          "kind": "other"
+        }
+      ]
+    }
+  },
+  {
+    "id": "grapes",
+    "name": "Grape",
+    "group": "Fruit",
+    "botanical": "Vitis vinifera",
+    "aliases": [
+      "Angoor",
+      "Draksha"
+    ],
+    "tint": "#6C3A7A",
+    "tintBg": "#EBDDF0",
+    "types": [
+      "Table grapes (seeded and seedless)",
+      "Wine, raisin and juice types",
+      "Trained on trellis, pergola or bower systems"
+    ],
+    "climate": "Warm and dry during ripening. Humid, rainy weather during bloom and ripening increases disease.",
+    "seasons": "Annual cycle of pruning, shoot growth, bloom, berry growth and ripening; timing depends strongly on region and cultivar.",
+    "soil": "Well-drained soils; avoid waterlogged and heavy saline soils.",
+    "ph": "About 5.5 to 6.5 (tolerates a wider range with care)",
+    "sun": "Full sun with good airflow.",
+    "water": "Moderate, controlled irrigation; excess water at ripening dilutes quality and splits berries.",
+    "nutrients": "Needs balanced N, P, K with magnesium, zinc and boron attention in many soils.",
+    "stages": [
+      {
+        "name": "Establishment",
+        "from": 0,
+        "to": 365,
+        "note": "Vine roots and trunk training begin."
+      },
+      {
+        "name": "Training",
+        "from": 365,
+        "to": 730,
+        "note": "Cordons and canopy structure."
+      },
+      {
+        "name": "Bud-break to bloom",
+        "from": 730,
+        "to": 790,
+        "note": "Annual cycle begins at pruning."
+      },
+      {
+        "name": "Berry growth and ripening",
+        "from": 790,
+        "to": 920,
+        "note": "Often 3 to 5 months after pruning or bloom, depending on cultivar and region."
+      }
+    ],
+    "maturity": "Vines often give a first useful crop in about 2 to 3 years, with later years improving.",
+    "pests": [
+      "Thrips",
+      "Mealybugs",
+      "Flea beetles",
+      "Leafhoppers",
+      "Birds"
+    ],
+    "diseases": [
+      {
+        "id": "downy-mildew",
+        "name": "Downy mildew",
+        "agent": "Plasmopara viticola",
+        "symptoms": "Yellow oily patches on leaves with white downy growth underneath; infected berries shrivel.",
+        "favoured": "Warm, humid, wet weather.",
+        "prevention": "Open the canopy, remove infected tissue, avoid overhead wetting, follow local disease forecasts."
+      },
+      {
+        "id": "powdery-mildew",
+        "name": "Powdery mildew",
+        "agent": "Erysiphe necator",
+        "symptoms": "Greyish-white powder on leaves, shoots and berries; berries may split.",
+        "favoured": "Moderate temperatures with humid air.",
+        "prevention": "Canopy management, sunlight and airflow, early scouting."
+      },
+      {
+        "id": "anthracnose",
+        "name": "Anthracnose",
+        "agent": "Elsinoë ampelina",
+        "symptoms": "Small dark spots with sunken grey centres on leaves, shoots and berries.",
+        "favoured": "Warm, wet conditions.",
+        "prevention": "Prune out infected canes, reduce humidity, use clean cuttings."
+      },
+      {
+        "id": "botrytis",
+        "name": "Bunch rot (Botrytis)",
+        "agent": "Botrytis cinerea",
+        "symptoms": "Grey mould on ripening bunches, especially tight clusters.",
+        "favoured": "Humid weather near harvest, berry splitting.",
+        "prevention": "Leaf removal around clusters, loose cluster types, careful water management."
+      }
+    ],
+    "watchFor": [
+      "Magnesium deficiency shown as interveinal yellowing",
+      "Berry shatter from boron or weather stress"
+    ],
+    "harvest": [
+      "Harvest by ripeness measures such as taste and sugar (Brix), not colour alone.",
+      "Clip bunches and keep them shaded."
+    ],
+    "storage": [
+      "Keep cool and handle carefully; table grapes are perishable.",
+      "Remove split or mouldy berries promptly."
+    ],
+    "nutrition": {
+      "kcal": 69,
+      "highlights": [
+        "Natural sugars",
+        "Vitamin K",
+        "Polyphenols in skin"
+      ]
+    },
+    "uses": [
+      "Fresh table fruit",
+      "Raisins, juice and wine",
+      "Jams"
+    ],
+    "care": {
+      "soilPrep": [
+        "Prepare deep, well-drained planting trenches with organic matter.",
+        "Install the trellis system before or at planting."
+      ],
+      "irrigation": [
+        "Irrigate to schedule by growth stage and avoid water excess at ripening.",
+        "Drip irrigation provides control and keeps leaves dry."
+      ],
+      "fertilizer": [
+        "Plan around petiole or soil analysis where available.",
+        "Keep nitrogen moderate to avoid dense canopies and disease."
+      ],
+      "prevention": [
+        "Prune and train for open canopies.",
+        "Remove infected tissue and clean prunings."
+      ],
+      "pests": [
+        "Monitor mealybugs on trunks and bunches.",
+        "Use netting for birds where needed."
+      ]
+    },
+    "plan": {
+      "start": "Plant rooted cutting or grafted vine",
+      "horizon": 365,
+      "harvestFrom": 99999,
+      "irrigEvery": 10,
+      "weedEvery": 30,
+      "scoutEvery": 10,
+      "nutrientEvery": 60,
+      "harvestNote": "Vine crop. A first crop normally comes after about two years, so this calendar only covers the first year.",
+      "extra": [
+        {
+          "key": "trellis",
+          "title": "Check trellis and train shoots",
+          "detail": "Tie the strongest shoot to the support.",
+          "day": 60,
+          "priority": "medium",
+          "kind": "other"
+        }
+      ]
+    }
+  },
+  {
+    "id": "bellpepper",
+    "name": "Bell pepper",
+    "group": "Vegetable",
+    "botanical": "Capsicum annuum",
+    "aliases": [
+      "Capsicum",
+      "Shimla mirch",
+      "Sweet pepper"
+    ],
+    "tint": "#D14B2B",
+    "tintBg": "#FBE3DC",
+    "types": [
+      "Green, red, yellow and orange fruit types (colour reflects ripeness or cultivar)",
+      "Open-field and protected-culture cultivars",
+      "Open-pollinated and hybrid cultivars"
+    ],
+    "climate": "Warm-season crop. Fruit set suffers when nights are very cold or days are very hot.",
+    "seasons": "Raised in more than one season where frost-free; protected culture extends the season.",
+    "soil": "Well-drained, fertile loam rich in organic matter.",
+    "ph": "About 6.0 to 6.8",
+    "sun": "Full sun; light shade in extreme heat helps fruit quality.",
+    "water": "Even moisture. Drought stress followed by heavy watering promotes blossom-end rot and poor fruit shape.",
+    "nutrients": "Moderate to heavy feeder; calcium and potassium matter for fruit quality.",
+    "stages": [
+      {
+        "name": "Nursery",
+        "from": 0,
+        "to": 35,
+        "note": "Seedlings are raised first."
+      },
+      {
+        "name": "Establishment",
+        "from": 35,
+        "to": 50,
+        "note": "Transplants root in."
+      },
+      {
+        "name": "Vegetative growth",
+        "from": 50,
+        "to": 75,
+        "note": "Branching and canopy build."
+      },
+      {
+        "name": "Flowering and fruit set",
+        "from": 75,
+        "to": 95,
+        "note": "Sensitive to heat and water swings."
+      },
+      {
+        "name": "Fruiting and harvest",
+        "from": 95,
+        "to": 150,
+        "note": "Repeated harvests over weeks."
+      }
+    ],
+    "maturity": "First harvest often about 70 to 90 days after transplanting; ripe red types take longer.",
+    "pests": [
+      "Aphids",
+      "Thrips",
+      "Mites",
+      "Fruit borers",
+      "Whiteflies"
+    ],
+    "diseases": [
+      {
+        "id": "bacterial-spot",
+        "name": "Bacterial leaf spot",
+        "agent": "Xanthomonas bacteria",
+        "symptoms": "Small water-soaked spots turning brown on leaves, raised scabby spots on fruit.",
+        "favoured": "Warm, wet, windy weather and infected seed.",
+        "prevention": "Use clean seed and transplants, rotate crops, avoid working in wet plants, remove debris."
+      },
+      {
+        "id": "anthracnose",
+        "name": "Anthracnose",
+        "agent": "Colletotrichum fungus",
+        "symptoms": "Sunken, dark circular lesions on ripening fruit.",
+        "favoured": "Warm, humid weather and overhead irrigation.",
+        "prevention": "Rotate crops, avoid wetting fruit, remove infected fruit, use clean seed."
+      },
+      {
+        "id": "leaf-curl",
+        "name": "Leaf curl virus",
+        "agent": "Thrips- or whitefly-transmitted viruses",
+        "symptoms": "Curled, puckered leaves, stunted plants and reduced fruit.",
+        "favoured": "High vector pressure.",
+        "prevention": "Use virus-free seedlings, net nurseries, remove affected plants early."
+      },
+      {
+        "id": "blossom-end-rot",
+        "name": "Blossom-end rot (physiological)",
+        "agent": "Not a pathogen; calcium transport disorder",
+        "symptoms": "Sunken tan to black patch at the fruit tip.",
+        "favoured": "Irregular watering, rapid growth.",
+        "prevention": "Keep moisture even, mulch, avoid excess nitrogen."
+      }
+    ],
+    "watchFor": [
+      "Blossom-end rot (calcium and water irregularity)",
+      "Sunscald on exposed fruit",
+      "Flower drop in extreme heat or cold"
+    ],
+    "harvest": [
+      "Pick when fruit reaches full size and firm; leave to colour for red or yellow types.",
+      "Cut with a short stalk rather than pulling."
+    ],
+    "storage": [
+      "Keep cool and shaded; avoid chilling injury below about 7 degrees C.",
+      "Grade out sunscalded or rotten fruit."
+    ],
+    "nutrition": {
+      "kcal": 20,
+      "highlights": [
+        "Vitamin C",
+        "Vitamin A (red types)",
+        "Antioxidants"
+      ]
+    },
+    "uses": [
+      "Fresh in salads",
+      "Stir-fries and curries",
+      "Stuffed or roasted dishes"
+    ],
+    "care": {
+      "soilPrep": [
+        "Incorporate compost before transplanting.",
+        "Raised beds help drainage on heavy soils."
+      ],
+      "irrigation": [
+        "Water deeply at the base and keep moisture even.",
+        "Mulch to reduce evaporation."
+      ],
+      "fertilizer": [
+        "Follow soil test results; split nitrogen.",
+        "Emphasise potassium and calcium at fruiting."
+      ],
+      "prevention": [
+        "Rotate away from tomato, chilli and brinjal.",
+        "Stake plants and keep foliage dry."
+      ],
+      "pests": [
+        "Scout for thrips and aphids; use sticky traps.",
+        "Use registered, crop-appropriate products only if thresholds are exceeded, and protect pollinators."
+      ]
+    },
+    "plan": {
+      "start": "Sow seeds in nursery",
+      "horizon": 150,
+      "harvestFrom": 85,
+      "irrigEvery": 4,
+      "weedEvery": 14,
+      "scoutEvery": 7,
+      "nutrientEvery": 21,
+      "nursery": {
+        "transplantDay": 35
+      },
+      "extra": [
+        {
+          "key": "stake",
+          "title": "Stake plants",
+          "detail": "Support heavy-fruiting plants to prevent breakage.",
+          "day": 55,
+          "priority": "medium",
+          "kind": "other"
+        }
+      ]
+    }
+  },
+  {
+    "id": "carrot",
+    "name": "Carrot",
+    "group": "Vegetable",
+    "botanical": "Daucus carota",
+    "aliases": [
+      "Gajar"
+    ],
+    "tint": "#E07B1F",
+    "tintBg": "#FCE9D3",
+    "types": [
+      "Nantes, Chantenay and Imperator root shapes",
+      "Orange, purple, red and yellow types",
+      "Short-season and long-season cultivars"
+    ],
+    "climate": "Cool-season crop. Roots colour and sweeten best in cool weather.",
+    "seasons": "Sown in cool seasons; avoid the hottest months.",
+    "soil": "Deep, loose, stone-free sandy loam. Compacted or stony soil makes forked roots.",
+    "ph": "About 6.0 to 7.0",
+    "sun": "Full sun.",
+    "water": "Even moisture, especially during germination. Swings cause splitting.",
+    "nutrients": "Moderate; avoid heavy fresh manure and excess nitrogen, which cause hairy or forked roots.",
+    "stages": [
+      {
+        "name": "Germination",
+        "from": 0,
+        "to": 14,
+        "note": "Slow; keep the seedbed moist."
+      },
+      {
+        "name": "Seedling and thinning",
+        "from": 14,
+        "to": 40,
+        "note": "Thin to avoid crowding."
+      },
+      {
+        "name": "Root enlargement",
+        "from": 40,
+        "to": 80,
+        "note": "Roots bulk up."
+      },
+      {
+        "name": "Maturity",
+        "from": 80,
+        "to": 110,
+        "note": "Roots reach harvest size."
+      }
+    ],
+    "maturity": "Roughly 70 to 120 days from sowing depending on cultivar.",
+    "pests": [
+      "Carrot rust fly",
+      "Aphids",
+      "Cutworms",
+      "Root-knot nematodes"
+    ],
+    "diseases": [
+      {
+        "id": "alternaria",
+        "name": "Alternaria leaf blight",
+        "agent": "Alternaria dauci",
+        "symptoms": "Dark brown spots with yellow edges on leaves, starting on older foliage.",
+        "favoured": "Warm, humid weather and long leaf wetness.",
+        "prevention": "Rotate crops, use clean seed, improve airflow, avoid overhead irrigation."
+      },
+      {
+        "id": "cercospora",
+        "name": "Cercospora leaf spot",
+        "agent": "Cercospora carotae",
+        "symptoms": "Small circular tan spots with dark margins on leaves.",
+        "favoured": "Warm, wet weather.",
+        "prevention": "Rotate crops, clear debris, use clean seed."
+      },
+      {
+        "id": "soft-rot",
+        "name": "Bacterial soft rot",
+        "agent": "Pectobacterium bacteria",
+        "symptoms": "Soft, watery, foul-smelling rot of roots.",
+        "favoured": "Wet soil, injured roots, warm storage.",
+        "prevention": "Avoid wounding, improve drainage, harvest and store dry and cool."
+      }
+    ],
+    "watchFor": [
+      "Forked or hairy roots (stones, fresh manure, compaction)",
+      "Green shoulders from exposed roots",
+      "Splitting after irregular watering"
+    ],
+    "harvest": [
+      "Lift when shoulders reach the cultivar size; loosen soil first.",
+      "Twist off the tops soon after harvest."
+    ],
+    "storage": [
+      "Store cool and humid, ideally near 0 to 4 degrees C.",
+      "Keep away from ripening fruit that gives off ethylene."
+    ],
+    "nutrition": {
+      "kcal": 41,
+      "highlights": [
+        "Beta-carotene",
+        "Fibre",
+        "Vitamin K"
+      ]
+    },
+    "uses": [
+      "Fresh and in salads",
+      "Curries, soups and juices",
+      "Pickles and sweets"
+    ],
+    "care": {
+      "soilPrep": [
+        "Loosen soil deeply and remove stones and clods.",
+        "Use fine, firm seedbeds."
+      ],
+      "irrigation": [
+        "Keep seedbed moist until emergence.",
+        "Then water deeply and evenly."
+      ],
+      "fertilizer": [
+        "Base on a soil test; avoid excess nitrogen.",
+        "Potassium supports root quality."
+      ],
+      "prevention": [
+        "Rotate crops and clean debris.",
+        "Thin seedlings to recommended spacing."
+      ],
+      "pests": [
+        "Cover rows with fine net against rust fly.",
+        "Use registered, crop-appropriate products only if thresholds are exceeded, and protect pollinators."
+      ]
+    },
+    "plan": {
+      "start": "Sow seeds directly",
+      "horizon": 110,
+      "harvestFrom": 75,
+      "irrigEvery": 4,
+      "weedEvery": 10,
+      "scoutEvery": 7,
+      "nutrientEvery": 25,
+      "extra": [
+        {
+          "key": "thin",
+          "title": "Thin seedlings",
+          "detail": "Thin to the recommended spacing for straight, full-size roots.",
+          "day": 25,
+          "priority": "high",
+          "kind": "other"
+        }
+      ]
+    }
+  },
+  {
+    "id": "cucumber",
+    "name": "Cucumber",
+    "group": "Vegetable",
+    "botanical": "Cucumis sativus",
+    "aliases": [
+      "Kheera",
+      "Kakdi"
+    ],
+    "tint": "#3E8E41",
+    "tintBg": "#DDF0DD",
+    "types": [
+      "Slicing, pickling and seedless types",
+      "Trellised and ground-trained cultivars",
+      "Gynoecious and monoecious cultivars"
+    ],
+    "climate": "Warm-season crop; sensitive to frost and prolonged cold.",
+    "seasons": "Sown in warm months or under protection.",
+    "soil": "Well-drained, fertile loam rich in organic matter.",
+    "ph": "About 6.0 to 7.0",
+    "sun": "Full sun.",
+    "water": "Frequent, even moisture; the fruit is mostly water. Water stress makes bitter fruit.",
+    "nutrients": "Moderate to heavy feeder.",
+    "stages": [
+      {
+        "name": "Germination",
+        "from": 0,
+        "to": 10,
+        "note": "Seeds emerge quickly in warm soil."
+      },
+      {
+        "name": "Vine growth",
+        "from": 10,
+        "to": 35,
+        "note": "Train vines."
+      },
+      {
+        "name": "Flowering",
+        "from": 35,
+        "to": 50,
+        "note": "Male flowers first, then female."
+      },
+      {
+        "name": "Fruiting and harvest",
+        "from": 50,
+        "to": 90,
+        "note": "Frequent harvests."
+      }
+    ],
+    "maturity": "First harvest often 45 to 60 days after sowing.",
+    "pests": [
+      "Aphids",
+      "Whiteflies",
+      "Fruit flies",
+      "Red pumpkin beetle",
+      "Spider mites"
+    ],
+    "diseases": [
+      {
+        "id": "downy-mildew",
+        "name": "Downy mildew",
+        "agent": "Pseudoperonospora cubensis",
+        "symptoms": "Angular yellow patches bounded by veins; grey-purple growth on leaf undersides.",
+        "favoured": "Cool nights, humid weather, leaf wetness.",
+        "prevention": "Use resistant cultivars, improve airflow, avoid overhead watering, remove infected leaves."
+      },
+      {
+        "id": "powdery-mildew",
+        "name": "Powdery mildew",
+        "agent": "Podosphaera / Erysiphe fungi",
+        "symptoms": "White powdery coating on leaf surfaces.",
+        "favoured": "Warm days, humid air, crowded plants.",
+        "prevention": "Space plants, prune for airflow, use resistant cultivars."
+      },
+      {
+        "id": "mosaic",
+        "name": "Cucumber mosaic virus",
+        "agent": "Aphid-transmitted virus",
+        "symptoms": "Mottled, distorted leaves, stunted vines and warty fruit.",
+        "favoured": "High aphid pressure.",
+        "prevention": "Control weeds and aphids, use clean seed, remove affected plants."
+      },
+      {
+        "id": "anthracnose",
+        "name": "Anthracnose",
+        "agent": "Colletotrichum orbiculare",
+        "symptoms": "Tan leaf spots and sunken fruit lesions.",
+        "favoured": "Warm, wet weather.",
+        "prevention": "Rotate crops, clear debris, avoid working wet plants."
+      }
+    ],
+    "watchFor": [
+      "Bitter fruit from water or heat stress",
+      "Curved fruit from uneven water or poor pollination",
+      "Yellowing from nitrogen deficiency"
+    ],
+    "harvest": [
+      "Pick regularly while fruit is firm and uniformly green.",
+      "Harvest in the cool of the day."
+    ],
+    "storage": [
+      "Store cool at about 10 to 12 degrees C; colder temperatures cause chilling injury.",
+      "Keep humid and handle gently."
+    ],
+    "nutrition": {
+      "kcal": 15,
+      "highlights": [
+        "Water",
+        "Vitamin K",
+        "Potassium"
+      ]
+    },
+    "uses": [
+      "Salads and raita",
+      "Pickles",
+      "Fresh snack"
+    ],
+    "care": {
+      "soilPrep": [
+        "Prepare beds rich in compost.",
+        "Install trellis before vines run."
+      ],
+      "irrigation": [
+        "Water deeply and often in hot weather.",
+        "Use drip to keep leaves dry."
+      ],
+      "fertilizer": [
+        "Follow soil test results.",
+        "Split nitrogen and boost potassium at fruiting."
+      ],
+      "prevention": [
+        "Rotate with non-cucurbits.",
+        "Trellis for airflow."
+      ],
+      "pests": [
+        "Monitor undersides for whitefly and mites.",
+        "Use registered, crop-appropriate products only if thresholds are exceeded, and protect pollinators."
+      ]
+    },
+    "plan": {
+      "start": "Sow seeds directly",
+      "horizon": 90,
+      "harvestFrom": 45,
+      "irrigEvery": 3,
+      "weedEvery": 10,
+      "scoutEvery": 7,
+      "nutrientEvery": 18,
+      "extra": [
+        {
+          "key": "trellis",
+          "title": "Install or adjust trellis",
+          "detail": "Train vines upward for cleaner fruit and better airflow.",
+          "day": 14,
+          "priority": "medium",
+          "kind": "other"
+        }
+      ]
+    }
+  },
+  {
+    "id": "groundnut",
+    "name": "Groundnut",
+    "group": "Field crop",
+    "botanical": "Arachis hypogaea",
+    "aliases": [
+      "Peanut",
+      "Moongphali",
+      "Verusenaga"
+    ],
+    "tint": "#B07A3A",
+    "tintBg": "#F4E6D2",
+    "types": [
+      "Bunch (erect) and spreading types",
+      "Spanish and Virginia market types",
+      "Short- and long-duration cultivars"
+    ],
+    "climate": "Warm-season legume; needs warm days and well-spaced rain or irrigation.",
+    "seasons": "Grown in the rainy (kharif) season and with irrigation in other seasons in many regions.",
+    "soil": "Light, well-drained sandy loam. Heavy soils make pod harvest hard.",
+    "ph": "About 6.0 to 6.5",
+    "sun": "Full sun.",
+    "water": "Moderate; critical at flowering, pegging and pod fill. Avoid waterlogging.",
+    "nutrients": "Fixes its own nitrogen; needs calcium (often gypsum) at pegging, plus phosphorus and potassium.",
+    "stages": [
+      {
+        "name": "Germination",
+        "from": 0,
+        "to": 10,
+        "note": "Seeds emerge."
+      },
+      {
+        "name": "Vegetative growth",
+        "from": 10,
+        "to": 35,
+        "note": "Branching."
+      },
+      {
+        "name": "Flowering and pegging",
+        "from": 35,
+        "to": 70,
+        "note": "Pegs push into soil."
+      },
+      {
+        "name": "Pod development",
+        "from": 70,
+        "to": 110,
+        "note": "Pods fill underground."
+      },
+      {
+        "name": "Maturity",
+        "from": 110,
+        "to": 130,
+        "note": "Leaves yellow; pods mature."
+      }
+    ],
+    "maturity": "Roughly 100 to 130 days from sowing.",
+    "pests": [
+      "Leaf miner",
+      "Aphids",
+      "Thrips",
+      "White grubs",
+      "Termites"
+    ],
+    "diseases": [
+      {
+        "id": "early-leaf-spot",
+        "name": "Early leaf spot",
+        "agent": "Cercospora arachidicola",
+        "symptoms": "Brown spots with yellow halos on leaves.",
+        "favoured": "Warm, humid weather.",
+        "prevention": "Rotate crops, use clean seed, remove residues."
+      },
+      {
+        "id": "late-leaf-spot",
+        "name": "Late leaf spot",
+        "agent": "Nothopassalora personata",
+        "symptoms": "Dark, nearly black spots, often on leaf undersides.",
+        "favoured": "Humid, wet weather.",
+        "prevention": "Rotate crops, plant tolerant cultivars, destroy residues."
+      },
+      {
+        "id": "rust",
+        "name": "Groundnut rust",
+        "agent": "Puccinia arachidis",
+        "symptoms": "Orange-brown pustules on leaf undersides.",
+        "favoured": "Cool, humid, cloudy weather.",
+        "prevention": "Use tolerant cultivars and avoid volunteer plants."
+      },
+      {
+        "id": "aflatoxin",
+        "name": "Aspergillus pod mould",
+        "agent": "Aspergillus flavus",
+        "symptoms": "Mouldy kernels that can contain aflatoxin.",
+        "favoured": "Drought stress and wet, warm storage.",
+        "prevention": "Avoid drought stress, dry pods quickly, store dry and clean."
+      }
+    ],
+    "watchFor": [
+      "Poorly filled pods from low calcium",
+      "Yellowing from iron deficiency in high pH soil",
+      "Drought stress at pod fill"
+    ],
+    "harvest": [
+      "Lift when leaves yellow and inner pod shells show dark markings.",
+      "Dry pods quickly to safe moisture."
+    ],
+    "storage": [
+      "Store well-dried, clean pods in cool, dry, ventilated conditions.",
+      "Discard mouldy kernels."
+    ],
+    "nutrition": {
+      "kcal": 567,
+      "highlights": [
+        "Protein",
+        "Healthy fats",
+        "Folate"
+      ]
+    },
+    "uses": [
+      "Roasted and boiled nuts",
+      "Oil",
+      "Chutneys and sweets"
+    ],
+    "care": {
+      "soilPrep": [
+        "Loosen soil so pegs can penetrate.",
+        "Treat seed as locally recommended."
+      ],
+      "irrigation": [
+        "Irrigate at flowering, pegging and pod fill.",
+        "Avoid waterlogging."
+      ],
+      "fertilizer": [
+        "Apply gypsum at pegging when advised.",
+        "Base phosphorus and potassium on a soil test."
+      ],
+      "prevention": [
+        "Rotate with cereals.",
+        "Remove crop residues."
+      ],
+      "pests": [
+        "Scout regularly and identify the pest before acting.",
+        "Use registered, crop-appropriate products only if thresholds are exceeded, and protect pollinators."
+      ]
+    },
+    "plan": {
+      "start": "Sow seeds directly",
+      "horizon": 130,
+      "harvestFrom": 110,
+      "irrigEvery": 7,
+      "weedEvery": 14,
+      "scoutEvery": 7,
+      "nutrientEvery": 28,
+      "extra": [
+        {
+          "key": "earthing",
+          "title": "Earthing up and gypsum",
+          "detail": "Light earthing up and calcium application at pegging.",
+          "day": 40,
+          "priority": "medium",
+          "kind": "nutrient"
+        }
+      ]
+    }
+  },
+  {
+    "id": "guava",
+    "name": "Guava",
+    "group": "Fruit",
+    "botanical": "Psidium guajava",
+    "aliases": [
+      "Amrood",
+      "Jama"
+    ],
+    "tint": "#7FB04A",
+    "tintBg": "#E7F2D6",
+    "types": [
+      "White-fleshed and pink/red-fleshed cultivars",
+      "Seedling and grafted types",
+      "Table and processing cultivars"
+    ],
+    "climate": "Hardy tropical and subtropical tree; frost injures young plants.",
+    "seasons": "Often crops twice a year in tropical regions.",
+    "soil": "Adaptable; best in well-drained, deep loam.",
+    "ph": "About 5.5 to 7.0",
+    "sun": "Full sun.",
+    "water": "Regular water while young; established trees tolerate dry spells but fruit better with irrigation.",
+    "nutrients": "Moderate; benefits from organic matter, N, P, K and micronutrients such as zinc.",
+    "stages": [
+      {
+        "name": "Establishment",
+        "from": 0,
+        "to": 365,
+        "note": "Young tree builds structure."
+      },
+      {
+        "name": "Growth",
+        "from": 365,
+        "to": 1095,
+        "note": "Canopy develops."
+      },
+      {
+        "name": "Bearing",
+        "from": 1095,
+        "to": 1800,
+        "note": "Regular cropping."
+      }
+    ],
+    "maturity": "Grafted trees often begin bearing in about 2 to 4 years.",
+    "pests": [
+      "Fruit flies",
+      "Mealybugs",
+      "Scale insects",
+      "Bark-eating caterpillar"
+    ],
+    "diseases": [
+      {
+        "id": "wilt",
+        "name": "Guava wilt",
+        "agent": "Fusarium and related fungi",
+        "symptoms": "Leaf yellowing, wilting, dieback and death of branches.",
+        "favoured": "Poorly drained soil, root injury, nematodes.",
+        "prevention": "Plant in well-drained sites, avoid wounding roots, remove dead trees."
+      },
+      {
+        "id": "anthracnose",
+        "name": "Anthracnose",
+        "agent": "Colletotrichum gloeosporioides",
+        "symptoms": "Dark sunken spots on fruit and dieback of twigs.",
+        "favoured": "Warm, humid weather.",
+        "prevention": "Prune dead twigs, remove infected fruit, improve airflow."
+      },
+      {
+        "id": "canker",
+        "name": "Fruit canker",
+        "agent": "Pestalotiopsis fungus",
+        "symptoms": "Raised corky spots on fruit.",
+        "favoured": "Humid weather and young fruit.",
+        "prevention": "Remove infected fruit and bag fruit when practical."
+      }
+    ],
+    "watchFor": [
+      "Fruit drop from water stress",
+      "Fruit-fly stings",
+      "Zinc deficiency (small, narrow leaves)"
+    ],
+    "harvest": [
+      "Pick when skin shifts from dark to light green or yellow.",
+      "Handle gently; fruit bruises easily."
+    ],
+    "storage": [
+      "Short shelf life; keep cool and sell quickly."
+    ],
+    "nutrition": {
+      "kcal": 68,
+      "highlights": [
+        "Vitamin C",
+        "Fibre",
+        "Lycopene (pink types)"
+      ]
+    },
+    "uses": [
+      "Fresh eating",
+      "Juice and jelly",
+      "Chutney"
+    ],
+    "care": {
+      "soilPrep": [
+        "Dig pits and fill with compost.",
+        "Choose a well-drained site."
+      ],
+      "irrigation": [
+        "Water young trees regularly.",
+        "Mulch the root zone."
+      ],
+      "fertilizer": [
+        "Feed in splits; add zinc if deficiency appears.",
+        "Add organic matter yearly."
+      ],
+      "prevention": [
+        "Prune for light and airflow.",
+        "Remove fallen fruit."
+      ],
+      "pests": [
+        "Use traps for fruit flies.",
+        "Use registered, crop-appropriate products only if thresholds are exceeded, and protect pollinators."
+      ]
+    },
+    "plan": {
+      "start": "Plant grafted sapling",
+      "horizon": 365,
+      "harvestFrom": 99999,
+      "irrigEvery": 10,
+      "weedEvery": 30,
+      "scoutEvery": 14,
+      "nutrientEvery": 60,
+      "harvestNote": "Tree crop. Bearing normally starts after one or more years, so this calendar only covers the first year.",
+      "extra": [
+        {
+          "key": "prune",
+          "title": "Formative pruning",
+          "detail": "Shape the young tree for strong structure.",
+          "day": 180,
+          "priority": "medium",
+          "kind": "other"
+        }
+      ]
+    }
+  },
+  {
+    "id": "jujube",
+    "name": "Jujube",
+    "group": "Fruit",
+    "botanical": "Ziziphus mauritiana",
+    "aliases": [
+      "Ber",
+      "Indian jujube",
+      "Regu pandu"
+    ],
+    "tint": "#A5532C",
+    "tintBg": "#F5E0D6",
+    "types": [
+      "Cultivated grafted cultivars",
+      "Wild seedling types",
+      "Round and oblong fruit types"
+    ],
+    "climate": "Very hardy; tolerates heat and drought well.",
+    "seasons": "Fruits mostly in the cooler months after summer growth.",
+    "soil": "Wide range, including poor and saline soils; best in well-drained loam.",
+    "ph": "About 6.0 to 8.5",
+    "sun": "Full sun.",
+    "water": "Drought tolerant; occasional irrigation improves fruit size.",
+    "nutrients": "Low to moderate; organic matter and balanced N, P, K.",
+    "stages": [
+      {
+        "name": "Establishment",
+        "from": 0,
+        "to": 365,
+        "note": "Young tree builds structure."
+      },
+      {
+        "name": "Growth",
+        "from": 365,
+        "to": 730,
+        "note": "Pruning shapes the tree."
+      },
+      {
+        "name": "Bearing",
+        "from": 730,
+        "to": 1400,
+        "note": "Cropping begins."
+      }
+    ],
+    "maturity": "Grafted trees often begin fruiting in about 2 years.",
+    "pests": [
+      "Fruit flies",
+      "Lac insect",
+      "Leaf-eating caterpillars",
+      "Mealybugs"
+    ],
+    "diseases": [
+      {
+        "id": "powdery-mildew",
+        "name": "Powdery mildew",
+        "agent": "Oidium fungus",
+        "symptoms": "White powdery coating on leaves, flowers and young fruit.",
+        "favoured": "Cool, humid weather.",
+        "prevention": "Prune for airflow and remove infected tissue."
+      },
+      {
+        "id": "leaf-spot",
+        "name": "Leaf spot",
+        "agent": "Cercospora / Alternaria fungi",
+        "symptoms": "Brown to black spots on leaves, leaf fall.",
+        "favoured": "Humid weather.",
+        "prevention": "Clear fallen leaves and prune."
+      },
+      {
+        "id": "sooty-mould",
+        "name": "Sooty mould",
+        "agent": "Fungus on insect honeydew",
+        "symptoms": "Black film on leaves and fruit.",
+        "favoured": "Heavy sap-sucking insects.",
+        "prevention": "Control the insects that cause honeydew."
+      }
+    ],
+    "watchFor": [
+      "Fruit drop after dry spells",
+      "Poor fruit set from lack of pollination",
+      "Fruit-fly damage"
+    ],
+    "harvest": [
+      "Pick when fruit turns from green to yellow-green and is firm.",
+      "Pick by hand in several rounds."
+    ],
+    "storage": [
+      "Cool storage extends life by a few days.",
+      "Sun-dry surplus fruit for processing."
+    ],
+    "nutrition": {
+      "kcal": 79,
+      "highlights": [
+        "Vitamin C",
+        "Fibre",
+        "Antioxidants"
+      ]
+    },
+    "uses": [
+      "Fresh eating",
+      "Dried fruit",
+      "Pickles and candy"
+    ],
+    "care": {
+      "soilPrep": [
+        "Dig pits and mix in compost.",
+        "Choose a sunny, well-drained site."
+      ],
+      "irrigation": [
+        "Water young trees.",
+        "Light irrigation at fruit set."
+      ],
+      "fertilizer": [
+        "Apply compost yearly.",
+        "Balanced N, P, K in splits."
+      ],
+      "prevention": [
+        "Prune after harvest to open the canopy.",
+        "Clear fallen leaves."
+      ],
+      "pests": [
+        "Use traps for fruit flies.",
+        "Use registered, crop-appropriate products only if thresholds are exceeded, and protect pollinators."
+      ]
+    },
+    "plan": {
+      "start": "Plant grafted sapling",
+      "horizon": 365,
+      "harvestFrom": 99999,
+      "irrigEvery": 14,
+      "weedEvery": 30,
+      "scoutEvery": 14,
+      "nutrientEvery": 60,
+      "harvestNote": "Tree crop. Bearing normally starts after one or more years, so this calendar only covers the first year.",
+      "extra": [
+        {
+          "key": "prune",
+          "title": "Formative pruning",
+          "detail": "Shape the young tree and remove weak shoots.",
+          "day": 150,
+          "priority": "medium",
+          "kind": "other"
+        }
+      ]
+    }
+  },
+  {
+    "id": "jute",
+    "name": "Jute",
+    "group": "Field crop",
+    "botanical": "Corchorus olitorius / C. capsularis",
+    "aliases": [
+      "Pat",
+      "Tossa jute",
+      "White jute"
+    ],
+    "tint": "#8C7B3C",
+    "tintBg": "#EEE9D3",
+    "types": [
+      "White jute (C. capsularis)",
+      "Tossa jute (C. olitorius), also grown for leaves",
+      "Fibre cultivars"
+    ],
+    "climate": "Warm, humid crop that likes high rainfall.",
+    "seasons": "Sown in spring and harvested in the monsoon.",
+    "soil": "Fertile alluvial loam; tolerates seasonal flooding better than most crops.",
+    "ph": "About 6.0 to 7.5",
+    "sun": "Full sun.",
+    "water": "Needs plentiful rain or irrigation, especially in early growth.",
+    "nutrients": "Responds to nitrogen; phosphorus and potassium support fibre quality.",
+    "stages": [
+      {
+        "name": "Germination",
+        "from": 0,
+        "to": 10,
+        "note": "Fine seeds need a fine seedbed."
+      },
+      {
+        "name": "Seedling",
+        "from": 10,
+        "to": 30,
+        "note": "Thin and weed."
+      },
+      {
+        "name": "Rapid growth",
+        "from": 30,
+        "to": 90,
+        "note": "Stems elongate."
+      },
+      {
+        "name": "Maturity",
+        "from": 90,
+        "to": 130,
+        "note": "Harvest for fibre."
+      }
+    ],
+    "maturity": "Roughly 100 to 130 days from sowing for fibre.",
+    "pests": [
+      "Jute hairy caterpillar",
+      "Yellow mite",
+      "Stem weevil",
+      "Semilooper"
+    ],
+    "diseases": [
+      {
+        "id": "stem-rot",
+        "name": "Stem rot",
+        "agent": "Macrophomina / Phytophthora fungi",
+        "symptoms": "Wilting, dark lesions on the stem base, plant death.",
+        "favoured": "Wet soil and warm weather.",
+        "prevention": "Use clean seed and rotate crops; improve drainage."
+      },
+      {
+        "id": "anthracnose",
+        "name": "Anthracnose",
+        "agent": "Colletotrichum corchori",
+        "symptoms": "Sunken brown stem lesions that weaken fibre.",
+        "favoured": "Warm, humid weather.",
+        "prevention": "Use treated seed and remove infected plants."
+      },
+      {
+        "id": "mosaic",
+        "name": "Yellow mosaic virus",
+        "agent": "Whitefly-transmitted virus",
+        "symptoms": "Yellow mosaic mottling on leaves.",
+        "favoured": "Whitefly pressure.",
+        "prevention": "Control weeds and whiteflies."
+      }
+    ],
+    "watchFor": [
+      "Thin, weak stems from crowded sowing",
+      "Yellowing from nitrogen deficiency",
+      "Insect leaf damage"
+    ],
+    "harvest": [
+      "Cut at the small-pod stage for good fibre.",
+      "Bundle and ret in clean, slow-moving water."
+    ],
+    "storage": [
+      "Dry fibre fully before storage.",
+      "Store clean and dry away from moisture."
+    ],
+    "nutrition": {
+      "kcal": 34,
+      "highlights": [
+        "Edible leaves are rich in vitamins A and C",
+        "Fibre crop"
+      ]
+    },
+    "uses": [
+      "Fibre for sacks and textiles",
+      "Edible leaves (tossa jute)",
+      "Handicrafts"
+    ],
+    "care": {
+      "soilPrep": [
+        "Prepare a fine, weed-free seedbed.",
+        "Plough several times."
+      ],
+      "irrigation": [
+        "Rely on rain; irrigate in dry spells.",
+        "Drain standing water."
+      ],
+      "fertilizer": [
+        "Apply nitrogen in splits.",
+        "Use phosphorus and potassium as advised."
+      ],
+      "prevention": [
+        "Rotate with rice or pulses.",
+        "Weed early."
+      ],
+      "pests": [
+        "Scout regularly and identify the pest before acting.",
+        "Use registered, crop-appropriate products only if thresholds are exceeded, and protect pollinators."
+      ]
+    },
+    "plan": {
+      "start": "Sow seeds directly",
+      "horizon": 130,
+      "harvestFrom": 115,
+      "irrigEvery": 10,
+      "weedEvery": 15,
+      "scoutEvery": 7,
+      "nutrientEvery": 30,
+      "harvestNote": "Jute is harvested for fibre; the harvest task marks cutting time."
+    }
+  },
+  {
+    "id": "maize",
+    "name": "Maize",
+    "group": "Field crop",
+    "botanical": "Zea mays",
+    "aliases": [
+      "Corn",
+      "Makka",
+      "Bhutta",
+      "Mokkajonna"
+    ],
+    "tint": "#E0A81F",
+    "tintBg": "#FCF0CB",
+    "types": [
+      "Grain, sweet corn, baby corn and fodder types",
+      "Hybrid and open-pollinated cultivars",
+      "Early and late maturity groups"
+    ],
+    "climate": "Warm-season cereal; sensitive to frost and to heat or drought at tasselling.",
+    "seasons": "Grown in rainy and winter seasons depending on region.",
+    "soil": "Deep, well-drained loam.",
+    "ph": "About 5.8 to 7.0",
+    "sun": "Full sun.",
+    "water": "Needs steady moisture; critical at tasselling, silking and grain fill.",
+    "nutrients": "Heavy nitrogen feeder; phosphorus, potassium and zinc support yield.",
+    "stages": [
+      {
+        "name": "Germination",
+        "from": 0,
+        "to": 10,
+        "note": "Emergence."
+      },
+      {
+        "name": "Vegetative growth",
+        "from": 10,
+        "to": 50,
+        "note": "Leaf stages."
+      },
+      {
+        "name": "Tasselling and silking",
+        "from": 50,
+        "to": 70,
+        "note": "Most sensitive stage."
+      },
+      {
+        "name": "Grain fill",
+        "from": 70,
+        "to": 100,
+        "note": "Kernels develop."
+      },
+      {
+        "name": "Maturity",
+        "from": 100,
+        "to": 120,
+        "note": "Grain dries down."
+      }
+    ],
+    "maturity": "Roughly 90 to 120 days for grain; sweet corn is picked earlier.",
+    "pests": [
+      "Fall armyworm",
+      "Stem borers",
+      "Aphids",
+      "Cutworms",
+      "Shoot fly"
+    ],
+    "diseases": [
+      {
+        "id": "leaf-blight",
+        "name": "Northern corn leaf blight",
+        "agent": "Exserohilum turcicum",
+        "symptoms": "Long cigar-shaped grey-green lesions on leaves.",
+        "favoured": "Moderate temperatures and long leaf wetness.",
+        "prevention": "Use tolerant hybrids, rotate crops, bury residue."
+      },
+      {
+        "id": "rust",
+        "name": "Common rust",
+        "agent": "Puccinia sorghi",
+        "symptoms": "Small brick-red pustules on both leaf surfaces.",
+        "favoured": "Cool, humid weather.",
+        "prevention": "Use resistant hybrids."
+      },
+      {
+        "id": "gray-leaf-spot",
+        "name": "Gray leaf spot",
+        "agent": "Cercospora zeae-maydis",
+        "symptoms": "Rectangular tan lesions limited by leaf veins.",
+        "favoured": "Warm, humid conditions and residue.",
+        "prevention": "Rotate crops and manage residue."
+      },
+      {
+        "id": "downy-mildew",
+        "name": "Downy mildew",
+        "agent": "Peronosclerospora fungi",
+        "symptoms": "Pale stripes on leaves and stunted plants.",
+        "favoured": "Wet soils and humid weather.",
+        "prevention": "Use treated seed and resistant hybrids."
+      }
+    ],
+    "watchFor": [
+      "Purple leaves in cold soil (phosphorus)",
+      "Pale yellow V-shape on older leaves (nitrogen)",
+      "Pale stripes (zinc deficiency)"
+    ],
+    "harvest": [
+      "Harvest grain at physiological maturity and dry to safe moisture.",
+      "Pick sweet corn at milk stage."
+    ],
+    "storage": [
+      "Dry grain well and store clean and airtight.",
+      "Sweet corn loses sugar quickly; chill soon after picking."
+    ],
+    "nutrition": {
+      "kcal": 86,
+      "highlights": [
+        "Carbohydrate",
+        "Fibre",
+        "B vitamins"
+      ]
+    },
+    "uses": [
+      "Roasted cobs",
+      "Flour and porridge",
+      "Feed and starch"
+    ],
+    "care": {
+      "soilPrep": [
+        "Prepare a fine, firm seedbed.",
+        "Incorporate organic matter."
+      ],
+      "irrigation": [
+        "Irrigate at tasselling and silking.",
+        "Avoid waterlogging."
+      ],
+      "fertilizer": [
+        "Split nitrogen across growth stages.",
+        "Apply zinc where deficient."
+      ],
+      "prevention": [
+        "Rotate with legumes.",
+        "Manage residue."
+      ],
+      "pests": [
+        "Scout whorls for fall armyworm early.",
+        "Use registered, crop-appropriate products only if thresholds are exceeded, and protect pollinators."
+      ]
+    },
+    "plan": {
+      "start": "Sow seeds directly",
+      "horizon": 120,
+      "harvestFrom": 90,
+      "irrigEvery": 7,
+      "weedEvery": 14,
+      "scoutEvery": 7,
+      "nutrientEvery": 25,
+      "extra": [
+        {
+          "key": "earthing",
+          "title": "Earthing up",
+          "detail": "Earth up around the base for stability.",
+          "day": 35,
+          "priority": "medium",
+          "kind": "other"
+        }
+      ]
+    }
+  },
+  {
+    "id": "pomegranate",
+    "name": "Pomegranate",
+    "group": "Fruit",
+    "botanical": "Punica granatum",
+    "aliases": [
+      "Anar",
+      "Dalimma"
+    ],
+    "tint": "#B3242E",
+    "tintBg": "#F8DADD",
+    "types": [
+      "Sweet, sour-sweet and sour cultivars",
+      "Soft-seeded and hard-seeded types",
+      "Red and pink-skinned cultivars"
+    ],
+    "climate": "Hardy; prefers hot, dry summers and cool winters; tolerates drought once established.",
+    "seasons": "Flowers several times in some regions; manage bahar (flowering season) locally.",
+    "soil": "Well-drained loam; tolerates some salinity.",
+    "ph": "About 5.5 to 7.5",
+    "sun": "Full sun.",
+    "water": "Regular moisture while fruit develops; sudden swings cause fruit cracking.",
+    "nutrients": "Moderate; organic matter plus N, P, K and micronutrients.",
+    "stages": [
+      {
+        "name": "Establishment",
+        "from": 0,
+        "to": 365,
+        "note": "Saplings root in."
+      },
+      {
+        "name": "Growth",
+        "from": 365,
+        "to": 730,
+        "note": "Structure and canopy."
+      },
+      {
+        "name": "Bearing",
+        "from": 730,
+        "to": 1400,
+        "note": "Cropping begins."
+      }
+    ],
+    "maturity": "Grafted or cuttings begin bearing in about 2 to 3 years.",
+    "pests": [
+      "Anar butterfly",
+      "Fruit-sucking moths",
+      "Thrips",
+      "Mealybugs",
+      "Whiteflies"
+    ],
+    "diseases": [
+      {
+        "id": "bacterial-blight",
+        "name": "Bacterial blight",
+        "agent": "Xanthomonas axonopodis pv. punicae",
+        "symptoms": "Dark, angular spots on leaves, stems and fruit with cracking.",
+        "favoured": "Warm, humid, rainy weather.",
+        "prevention": "Use clean planting material, prune infected parts, avoid overhead irrigation."
+      },
+      {
+        "id": "fruit-rot",
+        "name": "Fruit rot / Alternaria",
+        "agent": "Alternaria and other fungi",
+        "symptoms": "Rotting from the crown end and inside the fruit.",
+        "favoured": "Wet weather during fruiting.",
+        "prevention": "Sanitation, canopy airflow, bag fruit."
+      },
+      {
+        "id": "wilt",
+        "name": "Wilt",
+        "agent": "Ceratocystis / Fusarium fungi",
+        "symptoms": "Yellowing, wilting and dieback.",
+        "favoured": "Poor drainage and root injury.",
+        "prevention": "Plant in well-drained soil and remove affected trees."
+      }
+    ],
+    "watchFor": [
+      "Fruit cracking after water swings",
+      "Sunscald on exposed fruit",
+      "Flower drop in stress"
+    ],
+    "harvest": [
+      "Pick when skin colour deepens and fruit sounds metallic when tapped.",
+      "Cut with secateurs."
+    ],
+    "storage": [
+      "Keeps well for weeks if cool; discard cracked fruit."
+    ],
+    "nutrition": {
+      "kcal": 83,
+      "highlights": [
+        "Vitamin C",
+        "Potassium",
+        "Polyphenols"
+      ]
+    },
+    "uses": [
+      "Fresh arils",
+      "Juice",
+      "Syrups"
+    ],
+    "care": {
+      "soilPrep": [
+        "Dig pits and add compost.",
+        "Choose a sunny, well-drained site."
+      ],
+      "irrigation": [
+        "Irrigate regularly during fruit growth.",
+        "Mulch the root zone."
+      ],
+      "fertilizer": [
+        "Feed in splits with organic matter.",
+        "Add micronutrients when advised."
+      ],
+      "prevention": [
+        "Prune for airflow.",
+        "Remove fallen fruit and leaves."
+      ],
+      "pests": [
+        "Bag fruit where practical.",
+        "Use registered, crop-appropriate products only if thresholds are exceeded, and protect pollinators."
+      ]
+    },
+    "plan": {
+      "start": "Plant sapling",
+      "horizon": 365,
+      "harvestFrom": 99999,
+      "irrigEvery": 10,
+      "weedEvery": 30,
+      "scoutEvery": 14,
+      "nutrientEvery": 60,
+      "harvestNote": "Tree crop. Bearing normally starts after one or more years, so this calendar only covers the first year.",
+      "extra": [
+        {
+          "key": "prune",
+          "title": "Training and pruning",
+          "detail": "Select 3 to 5 main stems and remove suckers.",
+          "day": 150,
+          "priority": "medium",
+          "kind": "other"
+        }
+      ]
+    }
+  },
+  {
+    "id": "strawberry",
+    "name": "Strawberry",
+    "group": "Fruit",
+    "botanical": "Fragaria x ananassa",
+    "aliases": [
+      "Strawberries"
+    ],
+    "tint": "#D6304A",
+    "tintBg": "#FADDE2",
+    "types": [
+      "June-bearing, ever-bearing and day-neutral types",
+      "Open-field and protected cultivars",
+      "Runner-propagated plants"
+    ],
+    "climate": "Cool-season crop; best fruiting in mild days and cool nights.",
+    "seasons": "Planted in cool season in warm regions.",
+    "soil": "Well-drained, fertile sandy loam with organic matter.",
+    "ph": "About 5.5 to 6.5",
+    "sun": "Full sun.",
+    "water": "Shallow roots need frequent, light, even watering.",
+    "nutrients": "Moderate; avoid excess nitrogen, which gives leaves not fruit.",
+    "stages": [
+      {
+        "name": "Establishment",
+        "from": 0,
+        "to": 30,
+        "note": "Plants root in."
+      },
+      {
+        "name": "Vegetative growth",
+        "from": 30,
+        "to": 60,
+        "note": "Crowns and runners."
+      },
+      {
+        "name": "Flowering",
+        "from": 60,
+        "to": 80,
+        "note": "Protect from frost."
+      },
+      {
+        "name": "Fruiting",
+        "from": 80,
+        "to": 150,
+        "note": "Repeated picking."
+      }
+    ],
+    "maturity": "Fruit begins about 8 to 12 weeks after planting in many regions.",
+    "pests": [
+      "Aphids",
+      "Spider mites",
+      "Thrips",
+      "Slugs and snails"
+    ],
+    "diseases": [
+      {
+        "id": "gray-mould",
+        "name": "Gray mould",
+        "agent": "Botrytis cinerea",
+        "symptoms": "Soft, brown rot of fruit covered in grey fuzz.",
+        "favoured": "Cool, wet, humid weather.",
+        "prevention": "Mulch, space plants, pick often, remove infected fruit."
+      },
+      {
+        "id": "leaf-spot",
+        "name": "Leaf spot",
+        "agent": "Mycosphaerella fragariae",
+        "symptoms": "Small purple spots with pale centres on leaves.",
+        "favoured": "Warm, wet weather.",
+        "prevention": "Use clean plants, remove old leaves."
+      },
+      {
+        "id": "powdery-mildew",
+        "name": "Powdery mildew",
+        "agent": "Podosphaera aphanis",
+        "symptoms": "White coating on leaf undersides and curling leaves.",
+        "favoured": "Warm days, cool humid nights.",
+        "prevention": "Use resistant cultivars and open airflow."
+      },
+      {
+        "id": "anthracnose",
+        "name": "Crown rot / Anthracnose",
+        "agent": "Colletotrichum fungi",
+        "symptoms": "Wilting plants and sunken crown rot.",
+        "favoured": "Warm, wet conditions.",
+        "prevention": "Use clean plants and avoid overhead watering."
+      }
+    ],
+    "watchFor": [
+      "Small misshapen fruit from poor pollination",
+      "Leaf scorch from heat",
+      "Iron chlorosis in high pH"
+    ],
+    "harvest": [
+      "Pick fully coloured berries with caps attached.",
+      "Harvest every 2 to 3 days, in the cool of the day."
+    ],
+    "storage": [
+      "Chill soon after picking; very short shelf life.",
+      "Do not wash until use."
+    ],
+    "nutrition": {
+      "kcal": 32,
+      "highlights": [
+        "Vitamin C",
+        "Manganese",
+        "Antioxidants"
+      ]
+    },
+    "uses": [
+      "Fresh eating",
+      "Jam and syrups",
+      "Desserts"
+    ],
+    "care": {
+      "soilPrep": [
+        "Form raised beds with compost.",
+        "Use plastic mulch where suitable."
+      ],
+      "irrigation": [
+        "Drip irrigation keeps fruit clean.",
+        "Water frequently but lightly."
+      ],
+      "fertilizer": [
+        "Use balanced fertilizer.",
+        "Avoid excess nitrogen."
+      ],
+      "prevention": [
+        "Use clean planting material.",
+        "Renew beds every 2 to 3 years."
+      ],
+      "pests": [
+        "Check for mites and aphids.",
+        "Use registered, crop-appropriate products only if thresholds are exceeded, and protect pollinators."
+      ]
+    },
+    "plan": {
+      "start": "Plant runners or crowns",
+      "horizon": 150,
+      "harvestFrom": 80,
+      "irrigEvery": 3,
+      "weedEvery": 14,
+      "scoutEvery": 7,
+      "nutrientEvery": 21,
+      "extra": [
+        {
+          "key": "mulch",
+          "title": "Mulch under plants",
+          "detail": "Keep fruit clean and reduce rot.",
+          "day": 30,
+          "priority": "medium",
+          "kind": "other"
+        }
+      ]
+    }
+  },
+  {
+    "id": "turmeric",
+    "name": "Turmeric",
+    "group": "Field crop",
+    "botanical": "Curcuma longa",
+    "aliases": [
+      "Haldi",
+      "Pasupu"
+    ],
+    "tint": "#E0A100",
+    "tintBg": "#FCEFC2",
+    "types": [
+      "Rhizome cultivars selected for curcumin content",
+      "Short-, medium- and long-duration types"
+    ],
+    "climate": "Warm, humid tropical crop.",
+    "seasons": "Planted at the start of the rains; harvested after leaves dry.",
+    "soil": "Well-drained, deep, fertile loam; waterlogging rots rhizomes.",
+    "ph": "About 5.5 to 7.5",
+    "sun": "Full sun to light shade.",
+    "water": "Regular moisture; good drainage is essential.",
+    "nutrients": "Heavy feeder; organic matter, N, P and K, plus mulching.",
+    "stages": [
+      {
+        "name": "Sprouting",
+        "from": 0,
+        "to": 30,
+        "note": "Rhizome buds sprout."
+      },
+      {
+        "name": "Vegetative growth",
+        "from": 30,
+        "to": 120,
+        "note": "Leaf area builds."
+      },
+      {
+        "name": "Rhizome formation",
+        "from": 120,
+        "to": 210,
+        "note": "Rhizomes bulk up."
+      },
+      {
+        "name": "Maturity",
+        "from": 210,
+        "to": 270,
+        "note": "Leaves dry and rhizomes ready."
+      }
+    ],
+    "maturity": "About 7 to 9 months from planting.",
+    "pests": [
+      "Shoot borer",
+      "Leaf roller",
+      "Thrips",
+      "Rhizome scale"
+    ],
+    "diseases": [
+      {
+        "id": "leaf-blotch",
+        "name": "Leaf blotch",
+        "agent": "Taphrina maculans",
+        "symptoms": "Small brown spots with yellow halos, coalescing on leaves.",
+        "favoured": "Cool, humid weather.",
+        "prevention": "Use clean seed rhizomes, remove infected leaves, improve drainage."
+      },
+      {
+        "id": "leaf-spot",
+        "name": "Leaf spot",
+        "agent": "Colletotrichum fungus",
+        "symptoms": "Brown spots with grey centres on leaves.",
+        "favoured": "Warm, wet weather.",
+        "prevention": "Rotate crops and remove debris."
+      },
+      {
+        "id": "rhizome-rot",
+        "name": "Rhizome rot",
+        "agent": "Pythium / Fusarium",
+        "symptoms": "Yellowing and drying leaves, soft rotted rhizomes.",
+        "favoured": "Waterlogged soil.",
+        "prevention": "Use healthy seed rhizomes, drain well, rotate crops."
+      }
+    ],
+    "watchFor": [
+      "Yellowing leaves from waterlogging",
+      "Small rhizomes from nutrient or water stress",
+      "Shoot borer damage"
+    ],
+    "harvest": [
+      "Harvest when lower leaves turn yellow-brown and dry.",
+      "Lift carefully to avoid rhizome injury."
+    ],
+    "storage": [
+      "Cure by boiling and drying for powder, or keep fresh rhizomes cool and dry."
+    ],
+    "nutrition": {
+      "kcal": 354,
+      "highlights": [
+        "Curcumin",
+        "Iron",
+        "Manganese"
+      ]
+    },
+    "uses": [
+      "Spice and powder",
+      "Medicinal and traditional use",
+      "Colouring"
+    ],
+    "care": {
+      "soilPrep": [
+        "Prepare raised beds with compost.",
+        "Use healthy seed rhizomes."
+      ],
+      "irrigation": [
+        "Irrigate regularly but drain well.",
+        "Mulch after planting."
+      ],
+      "fertilizer": [
+        "Apply organic matter and split N and K.",
+        "Follow a soil test."
+      ],
+      "prevention": [
+        "Rotate with unrelated crops.",
+        "Use clean seed rhizomes."
+      ],
+      "pests": [
+        "Scout regularly and identify the pest before acting.",
+        "Use registered, crop-appropriate products only if thresholds are exceeded, and protect pollinators."
+      ]
+    },
+    "plan": {
+      "start": "Plant seed rhizomes",
+      "horizon": 270,
+      "harvestFrom": 240,
+      "irrigEvery": 7,
+      "weedEvery": 21,
+      "scoutEvery": 10,
+      "nutrientEvery": 30,
+      "extra": [
+        {
+          "key": "mulch",
+          "title": "Mulch beds",
+          "detail": "Mulch conserves moisture and suppresses weeds.",
+          "day": 7,
+          "priority": "medium",
+          "kind": "other"
+        }
+      ]
+    }
+  }
+]
+
+export function getCrop(id: string): Crop | undefined {
+  return CROPS.find((c) => c.id === id)
+}
+
+// Map the existing scan model's labels to profiles. Only reliable matches are listed.
+const SCAN_LABEL_LINKS: Record<string, { cropId: string; diseaseId: string }> = {
+  'Tomato Early Blight': { cropId: 'tomato', diseaseId: 'early-blight' },
+  'Potato Late Blight': { cropId: 'potato', diseaseId: 'late-blight' },
+  'Tomato Septoria Leaf Spot': { cropId: 'tomato', diseaseId: 'septoria' },
+}
+
+export function matchScanLabel(label: string) {
+  return SCAN_LABEL_LINKS[label] ?? null
+}
+
+export function cropForLabel(label: string): string | null {
+  const l = label.toLowerCase()
+  return CROPS.find((c) => l.includes(c.id) || l.includes(c.name.toLowerCase()))?.id ?? null
+}
+
+const U = 'https://images.unsplash.com/'
+const IMG: Record<string, string> = {
+  tomato: 'photo-1524593166156-312f362cada0',
+  potato: 'photo-1518977676601-b53f82aba655',
+  onion: 'photo-1618512496248-a07fe83aa8cb',
+  chilli: 'photo-1546860255-95536c19724e',
+  brinjal: 'photo-1528826007177-f38517ce9a8a',
+  okra: 'photo-1425543103986-22abb7d7e8d2',
+  mango: 'photo-1601493700631-2b16ec4b4716',
+  banana: 'photo-1603833665858-e61d17a86224',
+  orange: 'photo-1611080626919-7cf5a9dbab5b',
+  apple: 'photo-1628486930972-c1db82d528da',
+  grapes: 'photo-1537640538966-79f369143f8f',
+  watermelon: 'photo-1563114773-84221bd62daa',
+  bellpepper: 'photo-1604488943825-f95dc6796ca5',
+  carrot: 'photo-1598170845058-32b9d6a5da37',
+  cucumber: 'photo-1676043966926-c575c1ef320a',
+  groundnut: 'photo-1785619564649-658675821809',
+  guava: 'photo-1790983477102-c69f706d2496',
+  jujube: 'photo-1676887797124-2e5e1e23c837',
+  jute: 'photo-1635352416535-2f4f0d06237d',
+  maize: 'photo-1649251037566-6881b4956615',
+  pomegranate: 'photo-1574709755254-fcd942d09d5a',
+  strawberry: 'photo-1588165171080-c89acfa5ee83',
+  turmeric: 'photo-1768729341078-9da4e0ea959e',
+  vineyard: 'photo-1637181156153-bedd1098f8c1',
+}
+
+export function cropImg(id: string, w = 600, h = 450) {
+  const k = IMG[id]
+  return k ? `${U}${k}?w=${w}&h=${h}&fit=crop&auto=format` : ''
+}

@@ -1,0 +1,251 @@
+{
+  "classes": [
+    "Apple__Healthy",
+    "Apple__Rotten",
+    "Banana__Healthy",
+    "Banana__Rotten",
+    "Bellpepper__Healthy",
+    "Bellpepper__Rotten",
+    "Carrot__Healthy",
+    "Carrot__Rotten",
+    "Cucumber__Healthy",
+    "Cucumber__Rotten",
+    "Grape__Healthy",
+    "Grape__Rotten",
+    "Guava__Healthy",
+    "Guava__Rotten",
+    "Jujube__Healthy",
+    "Jujube__Rotten",
+    "Mango__Healthy",
+    "Mango__Rotten",
+    "Orange__Healthy",
+    "Orange__Rotten",
+    "Pomegranate__Healthy",
+    "Pomegranate__Rotten",
+    "Potato__Healthy",
+    "Potato__Rotten",
+    "Strawberry__Healthy",
+    "Strawberry__Rotten",
+    "Tomato__Healthy",
+    "Tomato__Rotten"
+  ],
+  "params": 2259740,
+  "train_time_sec": 6385.5,
+  "best_val_acc": 0.9348122866894198,
+  "settings": {
+    "model": "mobilenet",
+    "pretrained": true,
+    "augmentation": true,
+    "class_weights": true,
+    "epochs": 5,
+    "batch": 64,
+    "img": 128,
+    "lr": 0.0003,
+    "seed": 42
+  },
+  "history": {
+    "train_loss": [
+      0.7946644687133899,
+      0.40872179954642446,
+      0.3389593163676667,
+      0.28108874084061086,
+      0.28781886004306745
+    ],
+    "val_loss": [
+      0.5567458051056585,
+      0.2362334281714703,
+      0.28574116224925267,
+      0.2181719751208512,
+      0.22121139322121472
+    ],
+    "train_acc": [
+      0.7766633946481157,
+      0.8748239511757927,
+      0.8957364175664718,
+      0.9105885365541376,
+      0.9104605010456234
+    ],
+    "val_acc": [
+      0.8296928327645051,
+      0.926962457337884,
+      0.9163822525597269,
+      0.9348122866894198,
+      0.9307167235494881
+    ]
+  },
+  "test": {
+    "n_images": 2930,
+    "accuracy": 0.9293515358361775,
+    "macro_f1": 0.8884850344971811,
+    "per_class": {
+      "Apple__Healthy": {
+        "precision": 0.9629629629629629,
+        "recall": 0.9590163934426229,
+        "f1-score": 0.9609856262833676,
+        "support": 244.0
+      },
+      "Apple__Rotten": {
+        "precision": 0.9816849816849816,
+        "recall": 0.9146757679180887,
+        "f1-score": 0.9469964664310954,
+        "support": 293.0
+      },
+      "Banana__Healthy": {
+        "precision": 0.9849246231155779,
+        "recall": 0.98,
+        "f1-score": 0.9824561403508771,
+        "support": 200.0
+      },
+      "Banana__Rotten": {
+        "precision": 0.9824561403508771,
+        "recall": 1.0,
+        "f1-score": 0.9911504424778761,
+        "support": 280.0
+      },
+      "Bellpepper__Healthy": {
+        "precision": 0.8805970149253731,
+        "recall": 0.9672131147540983,
+        "f1-score": 0.921875,
+        "support": 61.0
+      },
+      "Bellpepper__Rotten": {
+        "precision": 0.7924528301886793,
+        "recall": 0.711864406779661,
+        "f1-score": 0.75,
+        "support": 59.0
+      },
+      "Carrot__Healthy": {
+        "precision": 0.9375,
+        "recall": 0.967741935483871,
+        "f1-score": 0.9523809523809523,
+        "support": 62.0
+      },
+      "Carrot__Rotten": {
+        "precision": 0.92,
+        "recall": 0.7931034482758621,
+        "f1-score": 0.8518518518518519,
+        "support": 58.0
+      },
+      "Cucumber__Healthy": {
+        "precision": 0.9206349206349206,
+        "recall": 0.9508196721311475,
+        "f1-score": 0.9354838709677419,
+        "support": 61.0
+      },
+      "Cucumber__Rotten": {
+        "precision": 0.9298245614035088,
+        "recall": 0.8983050847457628,
+        "f1-score": 0.9137931034482759,
+        "support": 59.0
+      },
+      "Grape__Healthy": {
+        "precision": 0.9090909090909091,
+        "recall": 1.0,
+        "f1-score": 0.9523809523809523,
+        "support": 20.0
+      },
+      "Grape__Rotten": {
+        "precision": 1.0,
+        "recall": 0.8,
+        "f1-score": 0.8888888888888888,
+        "support": 20.0
+      },
+      "Guava__Healthy": {
+        "precision": 0.7407407407407407,
+        "recall": 1.0,
+        "f1-score": 0.851063829787234,
+        "support": 20.0
+      },
+      "Guava__Rotten": {
+        "precision": 0.3333333333333333,
+        "recall": 1.0,
+        "f1-score": 0.5,
+        "support": 20.0
+      },
+      "Jujube__Healthy": {
+        "precision": 0.5882352941176471,
+        "recall": 1.0,
+        "f1-score": 0.7407407407407407,
+        "support": 20.0
+      },
+      "Jujube__Rotten": {
+        "precision": 0.8947368421052632,
+        "recall": 0.85,
+        "f1-score": 0.8717948717948718,
+        "support": 20.0
+      },
+      "Mango__Healthy": {
+        "precision": 0.9876543209876543,
+        "recall": 0.8839779005524862,
+        "f1-score": 0.9329446064139941,
+        "support": 181.0
+      },
+      "Mango__Rotten": {
+        "precision": 0.9856459330143541,
+        "recall": 0.9155555555555556,
+        "f1-score": 0.9493087557603687,
+        "support": 225.0
+      },
+      "Orange__Healthy": {
+        "precision": 0.9292452830188679,
+        "recall": 0.9471153846153846,
+        "f1-score": 0.9380952380952381,
+        "support": 208.0
+      },
+      "Orange__Rotten": {
+        "precision": 0.9512195121951219,
+        "recall": 0.8904109589041096,
+        "f1-score": 0.9198113207547169,
+        "support": 219.0
+      },
+      "Pomegranate__Healthy": {
+        "precision": 0.9375,
+        "recall": 0.75,
+        "f1-score": 0.8333333333333334,
+        "support": 20.0
+      },
+      "Pomegranate__Rotten": {
+        "precision": 1.0,
+        "recall": 0.85,
+        "f1-score": 0.918918918918919,
+        "support": 20.0
+      },
+      "Potato__Healthy": {
+        "precision": 0.9591836734693877,
+        "recall": 0.7580645161290323,
+        "f1-score": 0.8468468468468469,
+        "support": 62.0
+      },
+      "Potato__Rotten": {
+        "precision": 0.7162162162162162,
+        "recall": 0.9137931034482759,
+        "f1-score": 0.803030303030303,
+        "support": 58.0
+      },
+      "Strawberry__Healthy": {
+        "precision": 1.0,
+        "recall": 0.9625,
+        "f1-score": 0.9808917197452229,
+        "support": 160.0
+      },
+      "Strawberry__Rotten": {
+        "precision": 0.9408284023668639,
+        "recall": 0.99375,
+        "f1-score": 0.9665653495440729,
+        "support": 160.0
+      },
+      "Tomato__Healthy": {
+        "precision": 0.9649122807017544,
+        "recall": 0.9166666666666666,
+        "f1-score": 0.9401709401709402,
+        "support": 60.0
+      },
+      "Tomato__Rotten": {
+        "precision": 0.7567567567567568,
+        "recall": 0.9333333333333333,
+        "f1-score": 0.835820895522388,
+        "support": 60.0
+      }
+    }
+  }
+}

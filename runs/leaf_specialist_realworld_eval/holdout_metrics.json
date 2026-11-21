@@ -1,0 +1,81 @@
+{
+  "n_images": 967,
+  "accuracy": 0.35987590486039295,
+  "macro_f1_present_classes": 0.2462249544328164,
+  "macro_recall_present_classes": 0.2838429024927548,
+  "per_class": {
+    "Potato___Early_blight": {
+      "precision": 0.5833333333333334,
+      "recall": 0.6637931034482759,
+      "f1-score": 0.6209677419354839,
+      "support": 116.0
+    },
+    "Potato___Late_blight": {
+      "precision": 0.5617977528089888,
+      "recall": 0.47619047619047616,
+      "f1-score": 0.5154639175257731,
+      "support": 105.0
+    },
+    "Tomato___Bacterial_spot": {
+      "precision": 0.1111111111111111,
+      "recall": 0.00909090909090909,
+      "f1-score": 0.01680672268907563,
+      "support": 110.0
+    },
+    "Tomato___Early_blight": {
+      "precision": 0.25333333333333335,
+      "recall": 0.4318181818181818,
+      "f1-score": 0.31932773109243695,
+      "support": 88.0
+    },
+    "Tomato___Late_blight": {
+      "precision": 0.2871287128712871,
+      "recall": 0.7837837837837838,
+      "f1-score": 0.42028985507246375,
+      "support": 111.0
+    },
+    "Tomato___Leaf_Mold": {
+      "precision": 0.2,
+      "recall": 0.03296703296703297,
+      "f1-score": 0.05660377358490566,
+      "support": 91.0
+    },
+    "Tomato___Mosaic_virus": {
+      "precision": 1.0,
+      "recall": 0.018518518518518517,
+      "f1-score": 0.03636363636363636,
+      "support": 54.0
+    },
+    "Tomato___Septoria_leaf_spot": {
+      "precision": 0.34080717488789236,
+      "recall": 0.5033112582781457,
+      "f1-score": 0.40641711229946526,
+      "support": 151.0
+    },
+    "Tomato___Spider_mites": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 2.0
+    },
+    "Tomato___Yellow_Leaf_Curl_Virus": {
+      "precision": 0.6190476190476191,
+      "recall": 0.17105263157894737,
+      "f1-score": 0.26804123711340205,
+      "support": 76.0
+    },
+    "Tomato___healthy": {
+      "precision": 0.1,
+      "recall": 0.031746031746031744,
+      "f1-score": 0.04819277108433735,
+      "support": 63.0
+    }
+  },
+  "classes_not_scored": [
+    "Potato___healthy",
+    "Tomato___Target_Spot"
+  ],
+  "evaluation_mode": "crop-aware",
+  "clean_test_accuracy": 0.9769433465085638,
+  "gap_points": 61.7
+}
